@@ -15,7 +15,12 @@ namespace Test
 
         public static void Main(string[] args)
         {
-            Exercise e = new Cardio();
+            Exercise e = new Cardio("brandon", DateTime.Now.DayOfYear, Difficulty.Easy, Duration[0]);
         }
     }
+
+
+
+    // get average calories burned per week
+    // 
 }

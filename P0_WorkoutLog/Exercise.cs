@@ -12,10 +12,10 @@ namespace Exercises
 
     abstract class Exercise
     {
-        public string? Name;
-        public string? Type;
-        public string StartTime { get; set; } // HH:MM
-        public string EndTime { get; set; } // HH:MM
+        public string? Name { get; set; }
+        public string? Type { get; set; }
+        public string? StartTime { get; set; } // HH:MM
+        public string? EndTime { get; set; } // HH:MM
         public Difficulty Difficulty { get; set; } // EASY, NORMAL, HARD
         public DateTime DatePerformed { get; set; } // MM/DD/YYYY
 
@@ -27,10 +27,9 @@ namespace Exercises
         public int Reps { get; set; }
         public int Sets { get; set; }
         public double Pounds { get; set; }
+        public string Muscle { get; set; }
 
-
-
-        public Weights(string name, string startTime, string endTime, int reps, int sets, double pounds, DateTime datePerformed, Difficulty difficulty, Duration duration)
+        public Weights(string name, string startTime, string endTime, int reps, int sets, double pounds, DateTime datePerformed, Difficulty difficulty, string muscleGroup)
         {
             this.Name = name;
             this.Type = "Weights";
@@ -41,6 +40,7 @@ namespace Exercises
             this.Reps = reps;
             this.Sets = sets;
             this.Pounds = pounds;
+            this.Muscle = muscleGroup;
         }
 
     }
@@ -63,8 +63,6 @@ namespace Exercises
             this.EndTime = endTime;
             this.CaloriesBurned = caloriesBurned;
         }
-
-
 
     }
 
