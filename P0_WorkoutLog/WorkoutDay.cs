@@ -8,6 +8,7 @@ namespace WorkoutDay
 
     public enum Day
     {
+        Empty,
         Sunday,
         Monday,
         Tuesday,
@@ -21,18 +22,12 @@ namespace WorkoutDay
     class ProgramDay
     {
         public Day Day { get; set; }
-        private List<Exercise> ExercisesToday;
+        private List<Exercise> ExercisesToday { get; }
 
         public ProgramDay(Day day)
         {
             this.Day = day;
             this.ExercisesToday = new List<Exercise>();
-        }
-
-
-        public List<Exercise> GetExercisesToday()
-        {
-            return this.ExercisesToday;
         }
 
         // public Exercise removeExercise()
