@@ -17,7 +17,7 @@ namespace WorkoutProgram
 
         public Program(string day1)
         {
-            program[]
+            program[0] = new WorkoutDay();
         }
 
         public Program(string day1, string day2)
@@ -51,7 +51,7 @@ namespace WorkoutProgram
         }
 
 
-        /// 
+
         public bool programIsEmpty()
         {
             return program.Length == 0 ? true : false;
