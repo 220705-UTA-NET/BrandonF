@@ -18,15 +18,13 @@ namespace WorkoutDay
     }
 
 
-    class WorkoutDay
+    class ProgramDay
     {
-
         public Day Day { get; set; }
         private List<Exercise> ExercisesToday;
 
-        public WorkoutDay(Day day)
+        public ProgramDay(Day day)
         {
-
             this.Day = day;
             this.ExercisesToday = new List<Exercise>();
         }
@@ -37,6 +35,7 @@ namespace WorkoutDay
             return this.ExercisesToday;
         }
 
+        // public Exercise removeExercise()
 
     }
 }
