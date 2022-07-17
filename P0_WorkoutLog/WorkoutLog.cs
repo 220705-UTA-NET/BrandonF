@@ -44,12 +44,6 @@ namespace Test
 
                 // WANRNING; choice could be null, need to fix
 
-                // if (wlog.programs.Find(e => e.Name == name) != null) {
-                //     Console.WriteLine();
-                // }
-
-
-
                 switch (choice)
                 {
                     case 1:
@@ -67,6 +61,7 @@ namespace Test
                         // update program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("update program");
+                        wlog.updateProgram(name);
                         break;
                     case 4:
                         // delete program
@@ -95,17 +90,35 @@ namespace Test
 
         public Program createProgram(string name)
         {
-            Program p = new Program(name);
-            if (p != null)
+            Program? p = new Program(name);
+
+            if (p == null)
+            {
+                Console.WriteLine($"Couldn't create a program {name}");
+            }
+            else if (p.program.Count == 0)
+            {
+                Console.WriteLine("No days were added. Operation unsuccessful");
+            }
+            else
             {
                 Console.WriteLine($"Successfully created program: {name}");
                 programs.Add(p);
             }
-            else
-            {
-                Console.WriteLine($"Couldn't create a program {name}");
-            }
+
             return p;
+        }
+
+        public void updateProgram(string name)
+        {
+            Program? p = this.programs.Find(e => e.Name == name);
+            if (p == null)
+            {
+                Console.WriteLine($"Couldn't find program with name {name}");
+                return;
+            }
+
+            p.updateProgram();
         }
 
         // method gets a user input for a program name
