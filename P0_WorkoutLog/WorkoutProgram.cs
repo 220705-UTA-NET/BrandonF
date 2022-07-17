@@ -29,7 +29,7 @@ namespace WorkoutProgram
             foreach (var d in days) Console.WriteLine(d);
             int index = 0;
 
-            Console.WriteLine("Choose your workout days\n1. Sun\n2. Mon\n3. Tue\n4. Wed\n5. Thu\n6. Fri\n7. Sat\nEnter \"exit\" to exit or when you've finished adding days.");
+            Console.WriteLine("Choose your workout days\n1. Sun\n2. Mon\n3. Tue\n4. Wed\n5. Thu\n6. Fri\n7. Sat\nEnter -1 to exit or when you've finished adding days.");
             while (true)
             {
                 index = getIndex();

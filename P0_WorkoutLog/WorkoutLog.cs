@@ -34,7 +34,7 @@ namespace Test
             int choice = 0;
             do
             {
-                Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From");
+                Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From. Enter \"exit\" to exit the application.");
                 UserInput output = wlog.getProgramName();
                 if (output.valid == false) break;
                 string name = output.name;
@@ -60,22 +60,22 @@ namespace Test
                         break;
                     case 2:
                         // print program
-                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program doesn't exist"); continue; } // check if program exists, if not then don't perform operation
+                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("print program");
                         break;
                     case 3:
                         // update program
-                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program doesn't exist"); continue; } // check if program exists, if not then don't perform operation
+                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("update program");
                         break;
                     case 4:
                         // delete program
-                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program doesn't exist"); continue; } // check if program exists, if not then don't perform operation
+                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("delete program");
                         break;
                     case 5:
                         // retrieve from program
-                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program doesn't exist"); continue; } // check if program exists, if not then don't perform operation
+                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("retrieve from program");
                         break;
                     default:
