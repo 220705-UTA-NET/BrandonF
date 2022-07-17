@@ -11,78 +11,139 @@ using WorkoutProgram;
 namespace Test
 {
 
+    public struct UserInput
+    {
+        public bool valid;
+        public string name;
+    }
 
     class Testing
     {
+
+
+        List<Program> programs = new List<Program>();
+
+
         public static void Main(string[] args)
         {
-            // Exercise e = new Cardio("brandon", DateTime.Now.DayOfYear, Difficulty.Easy, Duration[0]);
-            Testing e = new Testing();
-            e.createProgram();
-        }
-        // Console.WriteLine("Choose your workout days\nSun, Mon, Tue, Wed, Thu, Fri, Sat\nEnter in format: \"SM-W-FS\"\nWhich means you would like to add days Sunday, Monday, Wednesday, Friday, Saturday\nAnd omit days Tuesday and Thursday\nEnter \"exit\" to exit");
 
+            // create workoutlog object
+            Testing wlog = new Testing();
 
-        public Program createProgram()
-        {
-            Day[] days = new Day[8];
-            foreach (var d in days) Console.WriteLine(d);
-            int index = 0;
-
-            Console.WriteLine("Choose your workout days\n1. Sun\n2. Mon\n3. Tue\n4. Wed\n5. Thu\n6. Fri\n7. Sat\nEnter \"exit\" to exit.");
-            while (true)
-            {
-                index = getIndex();
-                if (index == -1) break;
-                else if (days[index] != Day.Empty)
-                {
-                    Console.WriteLine("Day already added. Please choose a different day, or press -1 to complete adding days or to exit.");
-                }
-                else
-                {
-                    days[index] = (Day)index; // cast the index value to a day value
-                }
-            }
-
-            return new Program(days);
-        }
-
-        public int getIndex()
-        {
-            int index;
+            // execute main menu
+            int choice = 0;
             do
             {
-                Console.WriteLine("Please enter a number corresponding to a day of the week, or enter -1 to exit.");
-                int.TryParse(Console.ReadLine(), out index);
-                if (index == -1) return -1;
-            } while (index < 1 || index > 7);
-            Console.WriteLine($"{(Day)index} added to workout program.");
-            return index;
+                Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From");
+                UserInput output = wlog.getProgramName();
+                if (output.valid == false) break;
+                string name = output.name;
+
+                Console.WriteLine("Enter a number based on the following options:\n1. Create program\n2. Print program\n3. Update program (add exercises)\n4. Delete program\n5. Retrieve from");
+                int.TryParse(Console.ReadLine(), out choice);
+
+                // WANRNING; choice could be null, need to fix
+
+                // if (wlog.programs.Find(e => e.Name == name) != null) {
+                //     Console.WriteLine();
+                // }
+
+
+
+                switch (choice)
+                {
+                    case 1:
+                        // create program
+                        if (wlog.checkProgramExistence(name)) { Console.WriteLine("Program exists already"); continue; } // check if program exists, if so then don't create another one with the same name
+                        Console.WriteLine("create program");
+                        wlog.createProgram(name);
+                        break;
+                    case 2:
+                        // print program
+                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program doesn't exist"); continue; } // check if program exists, if not then don't perform operation
+                        Console.WriteLine("print program");
+                        break;
+                    case 3:
+                        // update program
+                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program doesn't exist"); continue; } // check if program exists, if not then don't perform operation
+                        Console.WriteLine("update program");
+                        break;
+                    case 4:
+                        // delete program
+                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program doesn't exist"); continue; } // check if program exists, if not then don't perform operation
+                        Console.WriteLine("delete program");
+                        break;
+                    case 5:
+                        // retrieve from program
+                        if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program doesn't exist"); continue; } // check if program exists, if not then don't perform operation
+                        Console.WriteLine("retrieve from program");
+                        break;
+                    default:
+                        Console.WriteLine("input not valid");
+                        break;
+                }
+
+
+            } while (choice != -1);
+
         }
+
+        public bool checkProgramExistence(string name)
+        {
+            return this.programs.Find(e => e.Name == name) != null;
+        }
+
+        public Program createProgram(string name)
+        {
+            Program p = new Program(name);
+            if (p != null)
+            {
+                Console.WriteLine($"Successfully created program: {name}");
+                programs.Add(p);
+            }
+            else
+            {
+                Console.WriteLine($"Couldn't create a program {name}");
+            }
+            return p;
+        }
+
+        // method gets a user input for a program name
+        public UserInput getProgramName()
+        {
+            UserInput choice;
+            string? name;
+
+            // Console.WriteLine("Enter program name (or enter \"exit\" to exit process without saving):");
+            name = Console.ReadLine();
+            if (name == null || name.ToLower() == "exit")
+            {
+                choice.valid = false;
+                choice.name = "null";
+                return choice;
+            }
+            name = name.ToLower();
+            choice.valid = true;
+            choice.name = name;
+            return choice;
+        }
+
 
 
         // public void printMenu()
         // {
 
-        //     // create workout plan/program ( list of workout plans )
-        //     // see workout plan/programs ( formatted nicely )
+        //     // print workout plan/programs ( formatted nicely )
         //     // delete workout plan
         //     // update workout plan
 
+        //     Console.WriteLine("Choose from the following options:\n1. Print workout program\n2. Update workout program\n3. Delete workout program");
+
         // }
 
-
-        // do
-        // {
-
-        //     // Choose your workout days
-        //     // Sun, Mon, Tue, Wed, Thu, Fri, Sat
-        //     // Enter in format: "SM-W-FS"
-        //     // Which means you would like to add days Sunday, Monday, Wednesday, Friday, Saturday
-        //     // And omit days Tuesday and Thursday
+        // public bool check
 
 
-        // } while (true);
 
         // get average calories burned per week
         // 

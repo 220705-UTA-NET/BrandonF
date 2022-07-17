@@ -11,6 +11,8 @@ namespace Exercises
     }
 
     abstract class Exercise
+
+    // going to need to convert all string to Lowercase
     {
         public string? Name { get; set; }
         public string? Type { get; set; }

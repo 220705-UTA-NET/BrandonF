@@ -1,7 +1,7 @@
 using System;
 using Exercises;
 
-// WorkoutDay will be a class with 7 days, where each day holds a collection of Exercises performed that day
+// ProgramDay will be a class with 7 days, where each day holds a collection of Exercises performed that day
 
 namespace WorkoutDay
 {
@@ -30,7 +30,26 @@ namespace WorkoutDay
             this.ExercisesToday = new List<Exercise>();
         }
 
-        // public Exercise removeExercise()
+        public void removeExercise(string name, string type)
+        {
+            int num = this.ExercisesToday.RemoveAll(e => e.Name == name && e.Type == type);
+
+            if (num > 0)
+            {
+                Console.WriteLine("Exercise(s) successfully removed.");
+            }
+            else
+            {
+                Console.WriteLine("No matching exercise to be removed.");
+            }
+
+        }
+
+        public void addExercise(Exercise e)
+        {
+            this.ExercisesToday.Add(e);
+            Console.WriteLine("Exercise successfully added.");
+        }
 
     }
 }
