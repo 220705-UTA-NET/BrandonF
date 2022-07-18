@@ -124,6 +124,12 @@ namespace WorkoutDay
             }
             if (name == "exit") return null;
 
+            // check if an exercise with that name already exists
+            if (this.ExercisesToday.FindIndex(e => e.Name == name) != -1)
+            {
+                Console.WriteLine("Exercise with that name already exists");
+                return null;
+            }
 
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("For an exercise type, enter \"cardio\" or \"weights\":");

@@ -58,7 +58,7 @@ namespace Test
                         // print program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("print program");
-                        wlog.printPrograms();
+                        wlog.displayProgram(name);
                         break;
                     case 3:
                         // update program
@@ -71,6 +71,9 @@ namespace Test
                         // delete program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("delete program");
+                        wlog.deleteProgram(name);
+                        Console.WriteLine("Program deleted");
+                        wlog.printPrograms();
                         break;
                     case 5:
                         // retrieve from program
@@ -85,6 +88,31 @@ namespace Test
 
             } while (choice != -1);
 
+        }
+
+        public void deleteProgram(string name)
+        {
+            int index = this.programs.FindIndex(p => p.Name == name);
+            this.programs.RemoveAt(index);
+
+        }
+
+        public void displayProgram(string name)
+        {
+
+            int index = this.programs.FindIndex(p => p.Name == name);
+
+            Console.WriteLine("Program Name\t\tDays\t\tExercises");
+            Console.WriteLine(name);
+
+            foreach (var d in this.programs[index].program)
+            {
+                Console.WriteLine($"\t\t\t{d.Day}");
+                foreach (var e in d.ExercisesToday)
+                {
+                    Console.WriteLine($"\t\t\t\t\t{e.Name}");
+                }
+            }
         }
 
         public bool checkProgramExistence(string name)
@@ -168,6 +196,8 @@ namespace Test
 
 
 
+
+
         // get average calories burned per week
         // createDay
         // addExerciseToDay
@@ -176,7 +206,6 @@ namespace Test
         // avgCardioLength (informative for cardio/running)
         // avgCaloriesBurnedPerWeek (trend)
         // sortExercisesByMuscleGroup (to see which muscles may be lacking)
-
 
         // getExercisesFromDay
         // avgWeightsLength (informative for weightlifting)
