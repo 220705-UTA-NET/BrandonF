@@ -30,7 +30,7 @@ namespace WorkoutProgram
             // foreach (var d in days) Console.WriteLine(d);
             int index = 0;
 
-            Console.WriteLine("Choose your workout days\n1. Sun\n2. Mon\n3. Tue\n4. Wed\n5. Thu\n6. Fri\n7. Sat\nEnter -1 to exit or when you've finished adding days.");
+            Console.WriteLine("Choose your workout days\n[1] Sun\n[2] Mon\n[3] Tue\n[4] Wed\n[5] Thu\n[6] Fri\n[7] Sat\nEnter [-1] to exit or when you've finished adding days.");
             while (true)
             {
                 index = getIndex(1, 7);
@@ -38,7 +38,7 @@ namespace WorkoutProgram
                 else if (days[index] != Day.Empty)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Day already added. Please choose a different day, or press -1 to complete adding days or to exit.");
+                    Console.WriteLine("Day already added. Please choose a different day, or press [-1] to complete adding days or to exit.");
                 }
                 else
                 {
@@ -60,7 +60,7 @@ namespace WorkoutProgram
             do
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Enter the corresponding number for the Day of the workout you want to update. Enter -1 to exit:");
+                Console.WriteLine("Enter the corresponding number for the Day of the workout you want to update. Enter [-1] to exit:");
 
                 // Console.WriteLine(this.program.Count);
                 day = getDays(); // what if they have 0 programDay's

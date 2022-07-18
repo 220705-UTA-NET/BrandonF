@@ -35,12 +35,12 @@ namespace Test
             do
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From. Enter \"exit\" to exit the application.");
+                Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From. Enter [exit] to exit the application.");
                 UserInput output = wlog.getProgramName();
                 if (output.valid == false) break;
                 string name = output.name;
 
-                Console.WriteLine("Enter a number based on the following options:\n1. Create program\n2. Print program\n3. Update program (add exercises)\n4. Delete program\n5. Retrieve from");
+                Console.WriteLine("Enter a number based on the following options:\n[1] Create program\n[2] Print program\n[3] Update program (add exercises)\n[4] Delete program\n[5] Retrieve from");
                 int.TryParse(Console.ReadLine(), out choice);
 
                 // WANRNING; choice could be null, need to fix
@@ -169,17 +169,17 @@ namespace Test
 
 
         // get average calories burned per week
-        // 
-
         // createDay
         // addExerciseToDay
         // removeExerciseFromDay
-        // getExercisesFromDay
 
-        // sortExercisesByMuscleGroup (to see which muscles may be lacking)
-        // avgCaloriesBurnedPerWeek (trend)
-        // avgWeightsLength (informative for weightlifting)
         // avgCardioLength (informative for cardio/running)
+        // avgCaloriesBurnedPerWeek (trend)
+        // sortExercisesByMuscleGroup (to see which muscles may be lacking)
+
+
+        // getExercisesFromDay
+        // avgWeightsLength (informative for weightlifting)
         // avgMiles (informative for cardio)
         // avgSteps (informative for weightlifting)
     }
