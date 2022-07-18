@@ -34,6 +34,7 @@ namespace Test
             int choice = 0;
             do
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From. Enter \"exit\" to exit the application.");
                 UserInput output = wlog.getProgramName();
                 if (output.valid == false) break;
@@ -51,17 +52,20 @@ namespace Test
                         if (wlog.checkProgramExistence(name)) { Console.WriteLine("Program exists already"); continue; } // check if program exists, if so then don't create another one with the same name
                         Console.WriteLine("create program");
                         wlog.createProgram(name);
+                        wlog.printPrograms();
                         break;
                     case 2:
                         // print program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("print program");
+                        wlog.printPrograms();
                         break;
                     case 3:
                         // update program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("update program");
                         wlog.updateProgram(name);
+                        wlog.printPrograms();
                         break;
                     case 4:
                         // delete program
@@ -111,6 +115,7 @@ namespace Test
 
         public void updateProgram(string name)
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
             Program? p = this.programs.Find(e => e.Name == name);
             if (p == null)
             {
@@ -119,6 +124,8 @@ namespace Test
             }
 
             p.updateProgram();
+            // printPrograms();
+            Console.WriteLine("Updates complete");
         }
 
         // method gets a user input for a program name
@@ -143,18 +150,21 @@ namespace Test
 
 
 
-        // public void printMenu()
-        // {
-
-        //     // print workout plan/programs ( formatted nicely )
-        //     // delete workout plan
-        //     // update workout plan
-
-        //     Console.WriteLine("Choose from the following options:\n1. Print workout program\n2. Update workout program\n3. Delete workout program");
-
-        // }
-
-        // public bool check
+        public void printPrograms()
+        {
+            foreach (var p in this.programs)
+            {
+                Console.WriteLine($"\t{p.Name}");
+                foreach (var d in p.program)
+                {
+                    Console.WriteLine($"\t\t{d.Day}");
+                    foreach (var e in d.ExercisesToday)
+                    {
+                        Console.WriteLine($"\t\t\t{e.Name}");
+                    }
+                }
+            }
+        }
 
 
 
