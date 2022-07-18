@@ -124,7 +124,7 @@ namespace Test
             }
 
             p.updateProgram();
-            // printPrograms();
+            printPrograms();
             Console.WriteLine("Updates complete");
         }
 

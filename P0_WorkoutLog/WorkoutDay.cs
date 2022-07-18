@@ -31,9 +31,29 @@ namespace WorkoutDay
             this.ExercisesToday = new List<Exercise>();
         }
 
-        public void removeExercise(string name, string type)
+        public void removeExercise()
         {
-            int num = this.ExercisesToday.RemoveAll(e => e.Name == name && e.Type == type);
+            Console.WriteLine("Enter the name of the following exercises to remove:");
+            printExercises();
+            string? exercise = Console.ReadLine();
+            if (exercise == null)
+            {
+                Console.WriteLine("Exercise not found. Returning...");
+                return;
+            }
+
+            while (this.ExercisesToday.FindIndex(e => e.Name == exercise) == -1)
+            {
+                Console.WriteLine("That exercise doesn't exist. Please enter a different name or enter [exit] to exit.");
+                exercise = Console.ReadLine();
+                if (exercise == null || exercise.ToLower() == "exit")
+                {
+                    Console.WriteLine("Remove operation unsuccessful. Returning...");
+                    return;
+                }
+            }
+
+            int num = this.ExercisesToday.RemoveAll(e => e.Name == exercise);
 
             if (num > 0)
             {
@@ -49,12 +69,12 @@ namespace WorkoutDay
         public void updateExercise(Program p)
         {
 
-            Console.WriteLine($"Enter the number corresponding to the operation you want to perform for {this.Day}:\n[1] Add an exercise\n[2] Modify existing exercise\n[3] Remove exercise\nEnter [-1] to exit");
+            Console.WriteLine($"Enter the number corresponding to the operation you want to perform for {this.Day}:\n[1] Add an exercise\n[2] Remove existing exercise\nEnter [-1] to exit");
             int index = p.getIndex(1, 3);
 
             if (index == -1)
             {
-                Console.WriteLine("Invalid option selected");
+                Console.WriteLine("Exiting");
                 return;
             }
             else if (index == 1)
@@ -67,188 +87,16 @@ namespace WorkoutDay
             }
             else if (index == 2)
             {
-                Console.WriteLine("Modifying an exercise...");
-                modifyExercise();
-            }
-            else if (index == 3)
-            {
-
-            }
-            else
-            {
-
-            }
-
-            // Console.ForegroundColor = ConsoleColor.Red;
-            // this.ExercisesToday.Add(e);
-            // Console.WriteLine("Exercise successfully added.");
-        }
-
-
-        // Option 2 of the menu
-        public void modifyExercise()
-        {
-
-            bool runLoop = true;
-
-            while (runLoop)
-            {
-
-                // show list of exercises to modify
-                Console.WriteLine("Enter the [Name] of the exercise you want to modify:");
-                printExercises();
-                // ask which exercise user whats to modify
-                // take user input
-                string? name = Console.ReadLine();
-
-                Exercise? ex = this.ExercisesToday.Find(e => e.Name == name);
-                if (ex == null)
+                Console.WriteLine("Removing an exercise...\n");
+                if (this.ExercisesToday.Count == 0)
                 {
-                    Console.WriteLine("No exercise with that name was found");
+                    Console.WriteLine("No exercises to remove");
+                    return;
                 }
-                else
-                {
-
-                    bool done = true;
-                    do
-                    {
-
-                        if (ex.Type == "Weights")
-                        {
-                            Console.WriteLine("Enter attribute name to edit:\n-> Name\n-> Start time\n-> End time\n-> Reps\n-> Sets\n-> Pounds\n-> Muscle Group-> Difficulty\n-> Date Performed");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Select an attribute to edit:\n-> Name\n-> Start time\n-> End time\n-> Calories Burned\n-> Difficulty\n-> Date Performed");
-                        }
-
-                        string? choice = Console.ReadLine();
-                        while (choice == null)
-                        {
-                            Console.WriteLine("Please enter a valid option");
-                            choice = Console.ReadLine();
-                        }
-                        choice = choice.ToLower();
-
-                        string? edit;
-                        switch (choice)
-                        {
-                            case "name":
-                                Console.WriteLine("Enter a new name:");
-                                edit = Console.ReadLine();
-                                if (edit != null) { }
-                                break;
-                            case "start time":
-                                break;
-                            case "end time":
-                                break;
-                            case "reps":
-                                if (ex.Type == "Cardio")
-                                {
-                                    Console.WriteLine("Exercise type does not have this attribute");
-                                }
-                                break;
-                            case "sets":
-                                if (ex.Type == "Cardio")
-                                {
-                                    Console.WriteLine("Exercise type does not have this attribute");
-                                }
-                                break;
-                            case "calories burned":
-                                if (ex.Type == "Weights")
-                                {
-                                    Console.WriteLine("Exercise type does not have this attribute");
-                                }
-                                break;
-                            case "difficulty":
-                                break;
-                            case "date performed":
-                                break;
-                            case "muscle group":
-                                if (ex.Type == "Cardio")
-                                {
-                                    Console.WriteLine("Exercise type does not have this attribute");
-                                }
-                                break;
-                            case "pounds":
-                                if (ex.Type == "Cardio")
-                                {
-                                    Console.WriteLine("Exercise type does not have this attribute");
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-
-
-
-                    } while (done);
-
-
-
-
-
-                }
-
-
-                // Console.WriteLine($"Do you want to modify another exercise for {this.Day}? Enter [Y] for Yes or [N] for No");
-                // string? choice = Console.ReadLine();
-
-                runLoop = false;
-
+                removeExercise();
+                Console.WriteLine("Exercise removed");
             }
 
-
-        }
-
-        public string modifyAttribute(string attribute, Exercise ex)
-        {
-
-            string input = Console.ReadLine();
-            int r1 = -1;
-            double r2 = -1;
-            string? r3;
-            // check if attribute has to be numeric
-            if (attribute == "calories burned" || attribute == "reps" || attribute == "sets")
-            {
-                // if user input cannot be parsed as a 
-                while (!int.TryParse(input, out r1) || input == null)
-                {
-                    Console.WriteLine("This attribute needs to be numeric (whole number)");
-                    input = Console.ReadLine();
-                }
-            } // else the attribute is of type string
-            else if (attribute == "pounds")
-            {
-                // if user input cannot be parsed as a 
-                while (!double.TryParse(input, out r2) || input == null)
-                {
-                    Console.WriteLine("This attribute needs to be numeric");
-                    input = Console.ReadLine();
-                }
-            }
-            else if (attribute == "date performed")
-            {
-                // if user input cannot be parsed as a 
-                while (!int.TryParse(input, out r1) || input == null)
-                {
-                    Console.WriteLine("This attribute needs to be numeric (whole number)");
-                    input = Console.ReadLine();
-                }
-            }
-            else
-            {
-                // if user input cannot be parsed as a 
-                while (input == null)
-                {
-                    Console.WriteLine("Please enter an attribute:");
-                    input = Console.ReadLine();
-                }
-            }
-
-
-
-            return
         }
 
         public void printExercises()

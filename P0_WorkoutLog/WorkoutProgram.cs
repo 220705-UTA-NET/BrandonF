@@ -70,7 +70,8 @@ namespace WorkoutProgram
                 // ProgramDay pd = new ProgramDay(this.program[day - 1].Day); // create a new program day
                 this.program[day - 1].updateExercise(this);
                 // this.program.Add(pd);
-                foreach (var e in this.program[day - 1].ExercisesToday) Console.WriteLine(e.Name);
+
+                foreach (var e in this.program[day - 1].ExercisesToday) { Console.WriteLine(e.Name); }
 
             } while (day != -1);
 
