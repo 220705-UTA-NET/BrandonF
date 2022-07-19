@@ -3,97 +3,142 @@ using Exercises;
 using WorkoutDay;
 using WorkoutProgram;
 
-// How to structure a workout?
-// Day, Week, Month, etc..?
-
-
-
 namespace Test
 {
 
+    // struct to validate user input
     public struct UserInput
     {
         public bool valid;
         public string name;
     }
 
-    class Testing
+    // WorkoutPlan is a class that hold a list of Programs
+    class WorkoutPlan
     {
-
 
         List<Program> programs = new List<Program>();
 
-
         public static void Main(string[] args)
         {
-
             // create workoutlog object
-            Testing wlog = new Testing();
+            WorkoutPlan wlog = new WorkoutPlan();
 
-            // execute main menu
+
             int choice = 0;
             do
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From. Enter [exit] to exit the application.");
+                Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From. Enter [exit] to exit the application."); // ask user for a program name
                 UserInput output = wlog.getProgramName();
-                if (output.valid == false) break;
+                if (output.valid == false)
+                {
+                    Console.WriteLine("Name is invalid");
+                    break;
+                }
                 string name = output.name;
 
+                // main menu
                 Console.WriteLine("Enter a number based on the following options:\n[1] Create program\n[2] Print program\n[3] Update program (add exercises)\n[4] Delete program\n[5] Retrieve from");
                 int.TryParse(Console.ReadLine(), out choice);
-
-                // WANRNING; choice could be null, need to fix
-
                 switch (choice)
                 {
                     case 1:
                         // create program
                         if (wlog.checkProgramExistence(name)) { Console.WriteLine("Program exists already"); continue; } // check if program exists, if so then don't create another one with the same name
-                        Console.WriteLine("create program");
+                        Console.WriteLine("Creating a program...");
                         wlog.createProgram(name);
+                        Console.WriteLine("Creation complete");
                         wlog.printPrograms();
                         break;
                     case 2:
                         // print program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
-                        Console.WriteLine("print program");
+                        Console.WriteLine("Printing program...");
                         wlog.displayProgram(name);
                         break;
                     case 3:
                         // update program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
-                        Console.WriteLine("update program");
+                        Console.WriteLine("Updating program...");
                         wlog.updateProgram(name);
+                        Console.WriteLine("Updates complete");
                         wlog.printPrograms();
                         break;
                     case 4:
                         // delete program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
-                        Console.WriteLine("delete program");
+                        Console.WriteLine("Deleting program...");
                         wlog.deleteProgram(name);
-                        Console.WriteLine("Program deleted");
+                        Console.WriteLine("Deletion complete");
                         wlog.printPrograms();
                         break;
                     case 5:
                         // retrieve from program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
-                        Console.WriteLine("retrieve from program");
+                        Console.WriteLine("Retrieving program...");
                         wlog.retrieveOther(name);
+                        Console.WriteLine("Retrieving complete");
+                        wlog.printPrograms();
                         break;
                     default:
-                        Console.WriteLine("input not valid");
+                        Console.WriteLine("Input is not valid");
                         break;
                 }
-
-
             } while (choice != -1);
+        }
+
+
+
+        // creates a program and add it to this list of programs
+        public Program createProgram(string name)
+        {
+            Program? p = new Program(name);
+
+            if (p == null)
+            {
+                Console.WriteLine($"Couldn't create program {name}");
+            }
+            else if (p.program.Count == 0)
+            {
+                Console.WriteLine("No days were added. Operation unsuccessful");
+            }
+            else
+            {
+                Console.WriteLine($"Successfully created program: {name}");
+                programs.Add(p);
+            }
+
+            return p;
+        }
+
+        // updates a program
+        public void updateProgram(string name)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Program? p = this.programs.Find(e => e.Name == name);
+            if (p == null)
+            {
+                Console.WriteLine($"Couldn't find program with name {name}");
+                return;
+            }
+
+            p.updateProgram();
+        }
+
+        // finds a program with [name] and delete it from this list of programs
+        public void deleteProgram(string name)
+        {
+            int index = this.programs.FindIndex(p => p.Name == name);
+            this.programs.RemoveAt(index);
 
         }
 
+
+        //  method performs option 5 (retrieve) of the main menu, which get calories and difficult level of a workout plan
         public void retrieveOther(string name)
         {
-            int index = this.programs.FindIndex(p => p.Name == name);
+            int index = this.programs.FindIndex(p => p.Name == name);// find the program in the list
 
             Console.WriteLine("Choose an option from the following list:\n[1] Get calories burned\n[2] See exercise difficulties");
             string? choice = Console.ReadLine();
@@ -103,7 +148,7 @@ namespace Test
                 return;
             }
 
-            while (choice != "1" && choice != "2")
+            while (choice != "1" && choice != "2")// keep asking the user for valid input
             {
                 Console.WriteLine("Invalid input. Please select [1] or [2], or enter [exit] to exit");
                 choice = Console.ReadLine();
@@ -115,6 +160,7 @@ namespace Test
             }
 
 
+            // based on user input, execute calorie calculation option, sort exercises by difficulty level or neither
             if (choice == "1")
             {
                 int cals = 0;
@@ -129,43 +175,26 @@ namespace Test
             }
             if (choice == "2")
             {
+                // create a hash map of difficulties that have a list of exercises that have that difficulty
                 Dictionary<string, List<string>> table = new Dictionary<string, List<string>>();
                 foreach (var p in this.programs[index].program)
                 {
                     foreach (var ex in p.ExercisesToday)
                     {
-
                         string? diff = ex.Difficulty.ToLower();
                         if (table.ContainsKey(diff))
                         {
-                            Console.WriteLine($"table contains {diff} already and {ex.Name} added to table");
                             table[diff].Add(ex.Name);
                         }
                         else
                         {
-
-                            Console.WriteLine($"table doesnt contains {diff} already and {ex.Name} added to table");
                             table.Add(diff, new List<string>());
                             table[diff].Add(ex.Name);
                         }
-                        // if (e.Difficulty == "Easy" || e.Difficulty == "easy")
-                        // {
-                        //     table["easy"].Add(e.Name);
-                        // }
-                        // else if (e.Difficulty == "Normal" || e.Difficulty == "normal")
-                        // {
-                        //     table["normal"].Add(e.Name);
-                        // }
-                        // else if (e.Difficulty == "Hard" || e.Difficulty == "hard")
-                        // {
-                        //     table["hard"].Add(e.Name);
-                        // }
-
                     }
                 }
 
-                Console.WriteLine($"table count is: {table.Count}");
-
+                // print out the difficult categories in a nice format
                 int e = 0;
                 int n = 0;
                 int h = 0;
@@ -173,72 +202,86 @@ namespace Test
                 if (table.ContainsKey("normal")) n = table["normal"].Count;
                 if (table.ContainsKey("hard")) h = table["hard"].Count;
 
-                Console.WriteLine($"e is: {e}");
-                Console.WriteLine($"n is: {n}");
-                Console.WriteLine($"h is: {h}");
                 int max = Math.Max(e, Math.Max(n, h));
-                Console.WriteLine("max: ", max);
                 Console.WriteLine("EASY\t\t\tNORMAL\t\t\tHARD");
                 int ein = 0, nin = 0, hin = 0;
                 for (int i = 0; i < max; i++)
                 {
                     if (ein < e)
                     {
-
                         Console.Write($"{table["easy"][ein++]}\t\t\t");
                     }
                     else
                     {
-
                         Console.Write("\t\t\t");
                     }
 
                     if (nin < n)
                     {
-
                         Console.Write($"{table["normal"][nin++]}\t\t\t");
                     }
                     else
                     {
-
                         Console.Write("\t\t\t");
                     }
 
                     if (hin < h)
                     {
-
                         Console.WriteLine($"{table["hard"][hin++]}");
                     }
                     else
                     {
-
                         Console.WriteLine("\t\t\t");
                     }
                 }
-                // foreach (var c in table)
-                // {
-                //     foreach ()
-                // }
+
             }
             else
             {
-                Console.WriteLine("something happened in retireveOTher()");
+                Console.WriteLine("No option selected");
+            }
+        }
+
+        // get valid user input
+        public UserInput getProgramName()
+        {
+            UserInput choice;
+            string? name;
+
+            name = Console.ReadLine();
+            if (name == null || name.ToLower() == "exit" || name == "")
+            {
+                choice.valid = false;
+                choice.name = "";
+                return choice;
             }
 
-
-
-
-
-
+            name = name.ToLower();
+            choice.valid = true;
+            choice.name = name;
+            return choice;
         }
 
-        public void deleteProgram(string name)
+
+
+        // displays an overview of all programs, their days, and exercises
+        public void printPrograms()
         {
-            int index = this.programs.FindIndex(p => p.Name == name);
-            this.programs.RemoveAt(index);
-
+            foreach (var p in this.programs)
+            {
+                Console.WriteLine($"\t{p.Name}");
+                foreach (var d in p.program)
+                {
+                    Console.WriteLine($"\t\t{d.Day}");
+                    foreach (var e in d.ExercisesToday)
+                    {
+                        Console.WriteLine($"\t\t\t{e.Name}");
+                    }
+                }
+            }
         }
 
+        // prints an overview of a program, its days and exercises
         public void displayProgram(string name)
         {
 
@@ -257,87 +300,11 @@ namespace Test
             }
         }
 
+        // checks the list of programs for a specific program name
         public bool checkProgramExistence(string name)
         {
             return this.programs.Find(e => e.Name == name) != null;
         }
-
-        public Program createProgram(string name)
-        {
-            Program? p = new Program(name);
-
-            if (p == null)
-            {
-                Console.WriteLine($"Couldn't create a program {name}");
-            }
-            else if (p.program.Count == 0)
-            {
-                Console.WriteLine("No days were added. Operation unsuccessful");
-            }
-            else
-            {
-                Console.WriteLine($"Successfully created program: {name}");
-                programs.Add(p);
-            }
-
-            return p;
-        }
-
-        public void updateProgram(string name)
-        {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Program? p = this.programs.Find(e => e.Name == name);
-            if (p == null)
-            {
-                Console.WriteLine($"Couldn't find program with name {name}");
-                return;
-            }
-
-            p.updateProgram();
-            printPrograms();
-            Console.WriteLine("Updates complete");
-        }
-
-        // method gets a user input for a program name
-        public UserInput getProgramName()
-        {
-            UserInput choice;
-            string? name;
-
-            // Console.WriteLine("Enter program name (or enter \"exit\" to exit process without saving):");
-            name = Console.ReadLine();
-            if (name == null || name.ToLower() == "exit")
-            {
-                choice.valid = false;
-                choice.name = "null";
-                return choice;
-            }
-            name = name.ToLower();
-            choice.valid = true;
-            choice.name = name;
-            return choice;
-        }
-
-
-
-        public void printPrograms()
-        {
-            foreach (var p in this.programs)
-            {
-                Console.WriteLine($"\t{p.Name}");
-                foreach (var d in p.program)
-                {
-                    Console.WriteLine($"\t\t{d.Day}");
-                    foreach (var e in d.ExercisesToday)
-                    {
-                        Console.WriteLine($"\t\t\t{e.Name}");
-                    }
-                }
-            }
-        }
-
-
-
 
 
         // get average calories burned per week

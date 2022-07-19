@@ -4,20 +4,21 @@ using System;
 namespace Exercises
 {
 
+    // Exercise class to inherit from
     abstract class Exercise
 
-    // going to need to convert all string to Lowercase
-    {
+    {// fields
         public string? Name { get; set; }
         public string? Type { get; set; }
-        public string? StartTime { get; set; } // HH:MM
-        public string? EndTime { get; set; } // HH:MM
-        public string? Difficulty { get; set; } // EASY, NORMAL, HARD
+        public string? StartTime { get; set; }
+        public string? EndTime { get; set; }
+        public string? Difficulty { get; set; }
         public int CaloriesBurned { get; set; }
-        public DateTime DatePerformed { get; set; } // MM/DD/YYYY
+        public DateTime DatePerformed { get; set; }
 
     }
 
+    // Weights class
     class Weights : Exercise
     {
 
@@ -40,15 +41,11 @@ namespace Exercises
             this.Pounds = pounds;
             this.Muscle = muscleGroup;
         }
-
     }
 
+    // Cardio class
     class Cardio : Exercise
     {
-
-        public double Miles { get; set; }
-        public int Steps { get; set; } // haven't used steps or miles yet!!!!!!!!!!!!!
-
 
         public Cardio(string name, DateTime datePerformed, string difficulty, string startTime, string endTime, int caloriesBurned, double Miles = 12.23, int Steps = 0)
         {
@@ -62,9 +59,4 @@ namespace Exercises
         }
 
     }
-
-
-
-
-
 }

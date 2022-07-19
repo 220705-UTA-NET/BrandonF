@@ -6,12 +6,13 @@ using System.Collections;
 namespace WorkoutProgram
 {
 
+    // Program class has a Name and a list of Program Days
     class Program
     {
         public string? Name { get; set; }
         public List<ProgramDay> program = new List<ProgramDay>(); // A workout program has a 7 day list, each containing exercises for that day
 
-        public Program(string name)//Day[] days, string name
+        public Program(string name)
         {
             this.Name = name;
             Day[] days = createProgram();
@@ -27,14 +28,13 @@ namespace WorkoutProgram
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Day[] days = new Day[8];
-            // foreach (var d in days) Console.WriteLine(d);
             int index = 0;
 
             Console.WriteLine("Choose your workout days\n[1] Sun\n[2] Mon\n[3] Tue\n[4] Wed\n[5] Thu\n[6] Fri\n[7] Sat\nEnter [-1] to exit or when you've finished adding days.");
             while (true)
             {
                 index = getIndex(1, 7);
-                if (index == -1) break;
+                if (index == -1) break;// if the user enters -1, the loop breaks
                 else if (days[index] != Day.Empty)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -48,38 +48,28 @@ namespace WorkoutProgram
                 }
             }
 
-            return days;
+            return days;// return the days
         }
 
+        // updates a day of the program
         public void updateProgram()
         {
-            // add new exercise
-            // modify exercise information
-
             int day;
             do
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Enter the corresponding number for the Day of the workout you want to update. Enter [-1] to exit:");
 
-                // Console.WriteLine(this.program.Count);
-                day = getDays(); // what if they have 0 programDay's
+                day = getDays(); // gets a day the user inputs
                 if (day == -1) { break; }
                 Console.WriteLine($"day chosen: {this.program[day - 1].Day}");
 
-                // ProgramDay pd = new ProgramDay(this.program[day - 1].Day); // create a new program day
                 this.program[day - 1].updateExercise(this);
-                // this.program.Add(pd);
 
-                foreach (var e in this.program[day - 1].ExercisesToday) { Console.WriteLine(e.Name); }
+                // foreach (var e in this.program[day - 1].ExercisesToday) { Console.WriteLine(e.Name); }
 
             } while (day != -1);
-
-            // Console.WriteLine("Choose a number corresponding the the following options:\n1. Add exercise to ");
         }
-
-
-
 
 
         // checks whether a program is Empty (has no days attached to it)
@@ -99,7 +89,6 @@ namespace WorkoutProgram
                 if (!valid)
                 {
                     Console.WriteLine("Operation unsuccessful. Try again...");
-                    Console.WriteLine($"index is value: {index}");
                 }
                 else if (index == -1)
                 {
@@ -114,14 +103,7 @@ namespace WorkoutProgram
             return index;
         }
 
-
-
-        public void printDays()
-        {
-            int i = 1;
-            foreach (var e in this.program) Console.WriteLine($"{i++}. {e.Day}");
-        }
-
+        // gets this index of a certain day
         public int getDays()
         {
             int i = 1;
@@ -135,7 +117,6 @@ namespace WorkoutProgram
                 if (!valid)
                 {
                     Console.WriteLine("Operation unsuccessful. Try again...");
-                    Console.WriteLine($"index is value: {index}");
                 }
                 else if (index == -1)
                 {

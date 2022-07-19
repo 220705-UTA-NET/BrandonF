@@ -7,6 +7,7 @@ using WorkoutProgram;
 namespace WorkoutDay
 {
 
+    // Day enum
     public enum Day
     {
         Empty,
@@ -19,7 +20,7 @@ namespace WorkoutDay
         Saturday
     }
 
-
+    // ProgramDay class has a Day and a list of Exercises
     class ProgramDay
     {
         public Day Day { get; set; }
@@ -31,6 +32,7 @@ namespace WorkoutDay
             this.ExercisesToday = new List<Exercise>();
         }
 
+        // removes and exercise from this list of exercises
         public void removeExercise()
         {
             Console.WriteLine("Enter the name of the following exercises to remove:");
@@ -66,6 +68,7 @@ namespace WorkoutDay
 
         }
 
+        // updates an exercises
         public void updateExercise(Program p)
         {
 
@@ -99,6 +102,7 @@ namespace WorkoutDay
 
         }
 
+        // prints all exercises associated with this Day
         public void printExercises()
         {
             int i = 1;
@@ -109,7 +113,7 @@ namespace WorkoutDay
         }
 
 
-        // Option 3 of the menu
+        // creates an exercise for this day
         public Exercise createExercise()
         {
 
@@ -131,6 +135,7 @@ namespace WorkoutDay
                 return null;
             }
 
+            // ask user for type of exercise
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("For an exercise type, enter \"cardio\" or \"weights\":");
             string? type = Console.ReadLine();
@@ -142,8 +147,7 @@ namespace WorkoutDay
             }
             if (type == "exit") return null;
 
-
-            // need to modify this so that it can only accept integers/time format
+            // ask user for start time
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter an exercise start time:");
             string? starttime = Console.ReadLine();
@@ -155,7 +159,7 @@ namespace WorkoutDay
             }
             if (starttime == "exit") return null;
 
-
+            // ask user for end time
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter an exercise end time:");
             string? endtime = Console.ReadLine();
@@ -168,6 +172,7 @@ namespace WorkoutDay
             if (endtime == "exit") return null;
 
 
+            // ask user for difficulty level
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter an exercise difficulty (Easy, Normal, Hard):");
             string? diff = Console.ReadLine();
@@ -184,6 +189,7 @@ namespace WorkoutDay
                 Console.WriteLine("Can't have an empty difficulty"); return null;
             }
 
+            // ask user for the date the exercise was performed
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter date the exercise was performed, one entry at a time, where:\nEntry 1 is YEAR\nEntry 2 is the MONTH\nEntry 3 is the DAY");
             int m = 0, d = 0, y = 0;
@@ -200,6 +206,7 @@ namespace WorkoutDay
             }
             DateTime date = new DateTime(y, m, d);
 
+            // asks user for calories burned for this exercise
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter number of calories burned:");
             string? calories;
@@ -210,6 +217,7 @@ namespace WorkoutDay
                 Console.WriteLine("Please enter valid input. Enter \"exit\" to exit operation");
             }
 
+            // creates an exercise
             Exercise ex;
             if (type == "weights")
             {
@@ -274,7 +282,7 @@ namespace WorkoutDay
                 Console.WriteLine("Exercise created!");
             }
 
-            return ex;
+            return ex;// return the exercise
         }
 
     }
