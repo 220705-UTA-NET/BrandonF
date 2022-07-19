@@ -200,6 +200,16 @@ namespace WorkoutDay
             }
             DateTime date = new DateTime(y, m, d);
 
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Enter number of calories burned:");
+            string? calories;
+            int cals = 0;
+            while ((calories = Console.ReadLine()) == null || (calories.ToLower().Equals("exit") == false && !int.TryParse(calories, out cals)))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Please enter valid input. Enter \"exit\" to exit operation");
+            }
+
             Exercise ex;
             if (type == "weights")
             {
@@ -253,21 +263,12 @@ namespace WorkoutDay
                     Console.WriteLine("Can't have an empty muscle"); return null;
                 }
 
-                ex = new Weights(name, starttime, endtime, rep, set, lb, date, diff, muscle);
+                ex = new Weights(name, starttime, endtime, rep, set, lb, date, diff, muscle, cals);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Exercise created!");
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Enter number of calories burned:");
-                string? calories;
-                int cals = 0;
-                while ((calories = Console.ReadLine()) == null || (calories.ToLower().Equals("exit") == false && !int.TryParse(calories, out cals)))
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Please enter valid input. Enter \"exit\" to exit operation");
-                }
                 ex = new Cardio(name, date, diff, starttime, endtime, cals);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Exercise created!");

@@ -13,6 +13,7 @@ namespace Exercises
         public string? StartTime { get; set; } // HH:MM
         public string? EndTime { get; set; } // HH:MM
         public string? Difficulty { get; set; } // EASY, NORMAL, HARD
+        public int CaloriesBurned { get; set; }
         public DateTime DatePerformed { get; set; } // MM/DD/YYYY
 
     }
@@ -25,8 +26,9 @@ namespace Exercises
         public double Pounds { get; set; }
         public string Muscle { get; set; }
 
-        public Weights(string name, string startTime, string endTime, int reps, int sets, double pounds, DateTime datePerformed, string difficulty, string muscleGroup)
+        public Weights(string name, string startTime, string endTime, int reps, int sets, double pounds, DateTime datePerformed, string difficulty, string muscleGroup, int caloriesBurned)
         {
+            this.CaloriesBurned = caloriesBurned;
             this.Name = name;
             this.Type = "Weights";
             this.Difficulty = difficulty;
@@ -46,7 +48,6 @@ namespace Exercises
 
         public double Miles { get; set; }
         public int Steps { get; set; } // haven't used steps or miles yet!!!!!!!!!!!!!
-        public int CaloriesBurned { get; set; }
 
 
         public Cardio(string name, DateTime datePerformed, string difficulty, string startTime, string endTime, int caloriesBurned, double Miles = 12.23, int Steps = 0)

@@ -79,6 +79,7 @@ namespace Test
                         // retrieve from program
                         if (!wlog.checkProgramExistence(name)) { Console.WriteLine("Program isn't populated yet"); continue; } // check if program exists, if not then don't perform operation
                         Console.WriteLine("retrieve from program");
+                        wlog.retrieveOther(name);
                         break;
                     default:
                         Console.WriteLine("input not valid");
@@ -87,6 +88,147 @@ namespace Test
 
 
             } while (choice != -1);
+
+        }
+
+        public void retrieveOther(string name)
+        {
+            int index = this.programs.FindIndex(p => p.Name == name);
+
+            Console.WriteLine("Choose an option from the following list:\n[1] Get calories burned\n[2] See exercise difficulties");
+            string? choice = Console.ReadLine();
+            if (choice == null)
+            {
+                Console.WriteLine("Invalid input. Returning...");
+                return;
+            }
+
+            while (choice != "1" && choice != "2")
+            {
+                Console.WriteLine("Invalid input. Please select [1] or [2], or enter [exit] to exit");
+                choice = Console.ReadLine();
+                if (choice == "exit")
+                {
+                    Console.WriteLine("Operation aborted");
+                    return;
+                }
+            }
+
+
+            if (choice == "1")
+            {
+                int cals = 0;
+                foreach (var p in this.programs[index].program)// looping the the days of the program
+                {
+                    foreach (var e in p.ExercisesToday)
+                    {
+                        cals += e.CaloriesBurned;
+                    }
+                }
+                Console.WriteLine($"You burn {cals} calories a workout");
+            }
+            if (choice == "2")
+            {
+                Dictionary<string, List<string>> table = new Dictionary<string, List<string>>();
+                foreach (var p in this.programs[index].program)
+                {
+                    foreach (var ex in p.ExercisesToday)
+                    {
+
+                        string? diff = ex.Difficulty.ToLower();
+                        if (table.ContainsKey(diff))
+                        {
+                            Console.WriteLine($"table contains {diff} already and {ex.Name} added to table");
+                            table[diff].Add(ex.Name);
+                        }
+                        else
+                        {
+
+                            Console.WriteLine($"table doesnt contains {diff} already and {ex.Name} added to table");
+                            table.Add(diff, new List<string>());
+                            table[diff].Add(ex.Name);
+                        }
+                        // if (e.Difficulty == "Easy" || e.Difficulty == "easy")
+                        // {
+                        //     table["easy"].Add(e.Name);
+                        // }
+                        // else if (e.Difficulty == "Normal" || e.Difficulty == "normal")
+                        // {
+                        //     table["normal"].Add(e.Name);
+                        // }
+                        // else if (e.Difficulty == "Hard" || e.Difficulty == "hard")
+                        // {
+                        //     table["hard"].Add(e.Name);
+                        // }
+
+                    }
+                }
+
+                Console.WriteLine($"table count is: {table.Count}");
+
+                int e = 0;
+                int n = 0;
+                int h = 0;
+                if (table.ContainsKey("easy")) e = table["easy"].Count;
+                if (table.ContainsKey("normal")) n = table["normal"].Count;
+                if (table.ContainsKey("hard")) h = table["hard"].Count;
+
+                Console.WriteLine($"e is: {e}");
+                Console.WriteLine($"n is: {n}");
+                Console.WriteLine($"h is: {h}");
+                int max = Math.Max(e, Math.Max(n, h));
+                Console.WriteLine("max: ", max);
+                Console.WriteLine("EASY\t\t\tNORMAL\t\t\tHARD");
+                int ein = 0, nin = 0, hin = 0;
+                for (int i = 0; i < max; i++)
+                {
+                    if (ein < e)
+                    {
+
+                        Console.Write($"{table["easy"][ein++]}\t\t\t");
+                    }
+                    else
+                    {
+
+                        Console.Write("\t\t\t");
+                    }
+
+                    if (nin < n)
+                    {
+
+                        Console.Write($"{table["normal"][nin++]}\t\t\t");
+                    }
+                    else
+                    {
+
+                        Console.Write("\t\t\t");
+                    }
+
+                    if (hin < h)
+                    {
+
+                        Console.WriteLine($"{table["hard"][hin++]}");
+                    }
+                    else
+                    {
+
+                        Console.WriteLine("\t\t\t");
+                    }
+                }
+                // foreach (var c in table)
+                // {
+                //     foreach ()
+                // }
+            }
+            else
+            {
+                Console.WriteLine("something happened in retireveOTher()");
+            }
+
+
+
+
+
 
         }
 
