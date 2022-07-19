@@ -15,7 +15,6 @@ namespace Exercises
         public string? Difficulty { get; set; }
         public int CaloriesBurned { get; set; }
         public DateTime DatePerformed { get; set; }
-
     }
 
     // Weights class

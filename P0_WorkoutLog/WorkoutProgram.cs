@@ -108,7 +108,7 @@ namespace WorkoutProgram
         {
             int i = 1;
             int index;
-            foreach (var e in this.program) Console.WriteLine($"{i++}. {e.Day}");
+            foreach (var e in this.program) Console.WriteLine($"[{i++}] {e.Day}");
 
             do
             {

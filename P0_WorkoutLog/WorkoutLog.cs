@@ -79,7 +79,6 @@ namespace Test
                         Console.WriteLine("Retrieving program...");
                         wlog.retrieveOther(name);
                         Console.WriteLine("Retrieving complete");
-                        wlog.printPrograms();
                         break;
                     default:
                         Console.WriteLine("Input is not valid");
@@ -173,7 +172,7 @@ namespace Test
                 }
                 Console.WriteLine($"You burn {cals} calories a workout");
             }
-            if (choice == "2")
+            else if (choice == "2")
             {
                 // create a hash map of difficulties that have a list of exercises that have that difficulty
                 Dictionary<string, List<string>> table = new Dictionary<string, List<string>>();
