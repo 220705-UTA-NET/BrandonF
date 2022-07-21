@@ -28,8 +28,8 @@ namespace Test
             int choice = 0;
             do
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("Enter a Program name to: Create/Print/Update/Delete/Retrieve From. Enter [exit] to exit the application."); // ask user for a program name
+
+                Console.WriteLine("Enter a Workout Program name to: Create/Print/Update/Delete/Retrieve From. Enter [exit] to exit the application."); // ask user for a program name
                 UserInput output = wlog.getProgramName();
                 if (output.valid == false)
                 {
@@ -114,7 +114,7 @@ namespace Test
         // updates a program
         public void updateProgram(string name)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
+
             Program? p = this.programs.Find(e => e.Name == name);
             if (p == null)
             {
@@ -305,22 +305,5 @@ namespace Test
             return this.programs.Find(e => e.Name == name) != null;
         }
 
-
-        // get average calories burned per week
-        // createDay
-        // addExerciseToDay
-        // removeExerciseFromDay
-
-        // avgCardioLength (informative for cardio/running)
-        // avgCaloriesBurnedPerWeek (trend)
-        // sortExercisesByMuscleGroup (to see which muscles may be lacking)
-
-        // getExercisesFromDay
-        // avgWeightsLength (informative for weightlifting)
-        // avgMiles (informative for cardio)
-        // avgSteps (informative for weightlifting)
     }
-
-
-
 }

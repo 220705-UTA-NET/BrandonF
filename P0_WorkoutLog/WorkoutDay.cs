@@ -84,7 +84,7 @@ namespace WorkoutDay
             {
                 Console.WriteLine("Adding exercise...");
                 Exercise ex = createExercise();
-                if (ex == null) { Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"Couldn't add an exercise to {this.Day}"); return; }
+                if (ex == null) { Console.WriteLine($"Couldn't add an exercise to {this.Day}"); return; }
                 this.ExercisesToday.Add(ex);
                 Console.WriteLine("Exercise successfully added.");
             }
@@ -117,12 +117,11 @@ namespace WorkoutDay
         public Exercise createExercise()
         {
 
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter an exercise name:");
             string? name = Console.ReadLine();
             while (name == null)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("Can't have an empty name");
                 name = Console.ReadLine();
             }
@@ -136,36 +135,33 @@ namespace WorkoutDay
             }
 
             // ask user for type of exercise
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("For an exercise type, enter \"cardio\" or \"weights\":");
             string? type = Console.ReadLine();
             while ((type != "cardio" && type != "weights" && type != "Weights" && type != "Cardio") || type == null)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("Please enter valid input. Enter \"exit\" to exit operation");
                 type = Console.ReadLine();
             }
             if (type == "exit") return null;
 
             // ask user for start time
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter an exercise start time:");
             string? starttime = Console.ReadLine();
             while (starttime == null)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("Can't have an empty start time");
                 starttime = Console.ReadLine();
             }
             if (starttime == "exit") return null;
 
             // ask user for end time
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter an exercise end time:");
             string? endtime = Console.ReadLine();
             while (endtime == null)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("Can't have an empty end time");
                 endtime = Console.ReadLine();
             }
@@ -173,47 +169,44 @@ namespace WorkoutDay
 
 
             // ask user for difficulty level
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter an exercise difficulty (Easy, Normal, Hard):");
             string? diff = Console.ReadLine();
             while ((diff != "easy" && diff != "Easy" && diff != "normal" && diff != "Normal" && diff != "hard" && diff != "Hard") || diff == null)
             {
                 if (diff == "exit") return null;
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("Please enter valid input. Enter \"exit\" to exit operation");
                 diff = Console.ReadLine();
             }
             if (diff == "exit")
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("Can't have an empty difficulty"); return null;
             }
 
             // ask user for the date the exercise was performed
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter date the exercise was performed, one entry at a time, where:\nEntry 1 is YEAR\nEntry 2 is the MONTH\nEntry 3 is the DAY");
             int m = 0, d = 0, y = 0;
             while (!int.TryParse(Console.ReadLine(), out y) || !int.TryParse(Console.ReadLine(), out m) || !int.TryParse(Console.ReadLine(), out d))
             {
                 if (m == -1 || d == -1 || y == -1) { Console.WriteLine("exiting date operation"); return null; }
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("Please enter valid input. Enter -1 to exit operation");
             }
             if ((m <= 0 || m > 12) || (d <= 0 || d > 31) || y <= 1900 || y > DateTime.Now.Year)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine($"date can't be invalid: {m}/{d}/{y}"); return null;
             }
             DateTime date = new DateTime(y, m, d);
 
             // asks user for calories burned for this exercise
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Enter number of calories burned:");
             string? calories;
             int cals = 0;
             while ((calories = Console.ReadLine()) == null || (calories.ToLower().Equals("exit") == false && !int.TryParse(calories, out cals)))
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+
                 Console.WriteLine("Please enter valid input. Enter \"exit\" to exit operation");
             }
 
@@ -221,64 +214,64 @@ namespace WorkoutDay
             Exercise ex;
             if (type == "weights")
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
+
                 int set = 0, rep = 0;
                 double lb = 0.0;
                 Console.WriteLine("Enter number of sets:");
                 string? sets;
                 while (!int.TryParse(sets = Console.ReadLine(), out set))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+
                     Console.WriteLine("Please enter valid input. Enter -1 to exit operation");
                 }
                 if (set == -1) { return null; }
 
 
-                Console.ForegroundColor = ConsoleColor.Blue;
+
                 Console.WriteLine("Enter number of reps:");
                 string? reps;
                 while (!int.TryParse(reps = Console.ReadLine(), out rep))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+
                     Console.WriteLine("Please enter valid input. Enter -1 to exit operation");
                 }
                 if (rep == -1) { return null; }
 
-                Console.ForegroundColor = ConsoleColor.Blue;
+
                 Console.WriteLine("Enter number of pounds lifted:");
                 string? pounds;
                 while (!double.TryParse(pounds = Console.ReadLine(), out lb))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+
                     Console.WriteLine("Please enter valid input. Enter -1 to exit operation");
                 }
                 if (lb == -1) { return null; }
 
-                Console.ForegroundColor = ConsoleColor.Blue;
+
                 Console.WriteLine("Enter the muscle group worked:");
                 int mg = 0;
                 string? muscle;
                 while (int.TryParse(muscle = Console.ReadLine(), out mg))
                 {
                     if (muscle == null || mg == -1) return null;
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+
                     Console.WriteLine("Please enter valid input. Enter -1 to exit operation");
                     // muscle = Console.ReadLine();
                 }
                 if (muscle == null)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+
                     Console.WriteLine("Can't have an empty muscle"); return null;
                 }
 
                 ex = new Weights(name, starttime, endtime, rep, set, lb, date, diff, muscle, cals);
-                Console.ForegroundColor = ConsoleColor.Green;
+
                 Console.WriteLine("Exercise created!");
             }
             else
             {
                 ex = new Cardio(name, date, diff, starttime, endtime, cals);
-                Console.ForegroundColor = ConsoleColor.Green;
+
                 Console.WriteLine("Exercise created!");
             }
 

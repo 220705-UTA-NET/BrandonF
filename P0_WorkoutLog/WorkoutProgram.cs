@@ -26,7 +26,7 @@ namespace WorkoutProgram
         // this method creates a Workout Program for the user
         public Day[] createProgram()
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
+
             Day[] days = new Day[8];
             int index = 0;
 
@@ -37,12 +37,11 @@ namespace WorkoutProgram
                 if (index == -1) break;// if the user enters -1, the loop breaks
                 else if (days[index] != Day.Empty)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+
                     Console.WriteLine("Day already added. Please choose a different day, or press [-1] to complete adding days or to exit.");
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"{(Day)index} added to workout program.");
                     days[index] = (Day)index; // cast the index value to a day value
                 }
@@ -57,7 +56,7 @@ namespace WorkoutProgram
             int day;
             do
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
+
                 Console.WriteLine("Enter the corresponding number for the Day of the workout you want to update. Enter [-1] to exit:");
 
                 day = getDays(); // gets a day the user inputs
