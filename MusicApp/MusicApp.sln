@@ -5,11 +5,9 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicApp.API", "MusicApp\MusicApp.API.csproj", "{914626CB-48EA-4F48-8E6D-737F8DD2EE75}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicApp.App", "MusicApp.Console\MusicApp.App.csproj", "{BDC2C101-2AAB-4906-9C6F-C4EB94559592}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicApp.Database", "MusicApp.Database\MusicApp.Database.csproj", "{41E439B3-BA47-498F-B903-BC2D44141289}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicApp.Logic", "MusicApp.Logic\MusicApp.Logic.csproj", "{EFD54AC7-E3B0-42DC-B84F-360FC9F82620}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicApp.Logic", "MusicApp.Logic\MusicApp.Logic.csproj", "{EFD54AC7-E3B0-42DC-B84F-360FC9F82620}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{914626CB-48EA-4F48-8E6D-737F8DD2EE75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{914626CB-48EA-4F48-8E6D-737F8DD2EE75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{914626CB-48EA-4F48-8E6D-737F8DD2EE75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDC2C101-2AAB-4906-9C6F-C4EB94559592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDC2C101-2AAB-4906-9C6F-C4EB94559592}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDC2C101-2AAB-4906-9C6F-C4EB94559592}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDC2C101-2AAB-4906-9C6F-C4EB94559592}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41E439B3-BA47-498F-B903-BC2D44141289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41E439B3-BA47-498F-B903-BC2D44141289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41E439B3-BA47-498F-B903-BC2D44141289}.Release|Any CPU.ActiveCfg = Release|Any CPU
