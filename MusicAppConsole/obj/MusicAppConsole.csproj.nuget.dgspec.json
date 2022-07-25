@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj": {}
+    "/Users/brandon/Revature/BrandonF/MusicAppConsole/MusicAppConsole.csproj": {}
   },
   "projects": {
-    "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj": {
+    "/Users/brandon/Revature/BrandonF/MusicAppConsole/MusicAppConsole.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj",
-        "projectName": "MusicApp.Logic",
-        "projectPath": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj",
+        "projectUniqueName": "/Users/brandon/Revature/BrandonF/MusicAppConsole/MusicAppConsole.csproj",
+        "projectName": "MusicAppConsole",
+        "projectPath": "/Users/brandon/Revature/BrandonF/MusicAppConsole/MusicAppConsole.csproj",
         "packagesPath": "/Users/brandon/.nuget/packages/",
-        "outputPath": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/obj/",
+        "outputPath": "/Users/brandon/Revature/BrandonF/MusicAppConsole/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/brandon/.nuget/NuGet/NuGet.Config"
