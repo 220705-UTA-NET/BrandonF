@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MusicApp.Database;
+using MusicApp.Logic;
 using System.Text.Json;
 
 namespace MusicApp.API.Controllers
@@ -8,41 +10,42 @@ namespace MusicApp.API.Controllers
     [ApiController]
     public class SongController : ControllerBase
     {
-        private readonly IRepository repo;
-        private readonly ILogger<SongController> logger;
+        private readonly IRepository _repo;
+        private readonly ILogger<SongController> _logger;
 
         public SongController(IRepository repo, ILogger<SongController> logger)
         {
-            this.repo = repo;
-            this.logger = logger;
+            _repo = repo;
+            _logger = logger;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SongController>>> GetAllSongs()
+        public async Task<ActionResult<IEnumerable<Song>>> GetAllSongs()
         {
-            IEnumerable<SongController> songs;
+            IEnumerable<Song> songs;
             try
             {
-                await repo.GetAll();
+                songs = await _repo.GetAllSongsAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                this.logger.LogError(e, e.message);
-                this.logger.LogInformation("Song Controller couldn't run GetAll method");
+                _logger.LogError(e, e.Message);
+                _logger.LogInformation("Song Controller couldn't run GetAll method");
                 return StatusCode(500);
             }
+            return songs.ToList();
         }
 
-        [HttpGet("")]
-        public ContentResult Testing()
-        {
-            return Content("Message received. Sending a response back");
-        }
+        //[HttpGet("")]
+        //public ContentResult Testing()
+        //{
+        //    return Content("Message received. Sending a response back");
+        //}
 
-        [HttpGet("{title}")]
-        public ActionResult GetSong(string title)
-        {
-            return View("/html/test.html");
-        }
+        //[HttpGet("{title}")]
+        //public ActionResult GetSong(string title)
+        //{
+        //    return Content("/html/test.html");
+        //}
     }
 }

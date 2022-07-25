@@ -1,6 +1,8 @@
-var builder = WebApplication.CreateBuilder(args);
+using MusicApp.Database;
 
-//string connectionString = new Uri(Environment.dbURL);
+string connectionString = Environment.GetEnvironmentVariable("dbURL");
+Console.Write(connectionString);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -11,6 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 
 //builder.Services.AddSingleton<IRepository>();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<IRepository>(
+    sp => new SQLRepository(connectionString, sp.GetRequiredService<ILogger<SQLRepository>>())
+);
 
 var app = builder.Build();
 

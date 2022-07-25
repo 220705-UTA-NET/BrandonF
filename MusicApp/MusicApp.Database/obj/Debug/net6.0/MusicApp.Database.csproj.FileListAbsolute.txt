@@ -10,3 +10,6 @@ C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\Mus
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\refint\MusicApp.Database.dll
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.pdb
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\ref\MusicApp.Database.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\bin\Debug\net6.0\MusicApp.Logic.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\bin\Debug\net6.0\MusicApp.Logic.pdb
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.csproj.CopyComplete
