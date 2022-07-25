@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "MusicApp.App/1.0.0": {
+        "dependencies": {
+          "MusicApp.Logic": "1.0.0"
+        },
+        "runtime": {
+          "MusicApp.App.dll": {}
+        }
+      },
+      "MusicApp.Logic/1.0.0": {
+        "runtime": {
+          "MusicApp.Logic.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MusicApp.App/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MusicApp.Logic/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

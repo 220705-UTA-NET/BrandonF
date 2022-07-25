@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:56409",
+      "sslPort": 44384
+    }
+  },
+  "profiles": {
+    "MusicApp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:7257",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "dbURL": "Server=tcp:myfirstdatabase-figueredo.database.windows.net,1433;Initial Catalog=MyFirstSQLDatabase;Persist Security Info=False;User ID=figueredologin;Password={Trackpad1996};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+      },
+      "applicationUrl": "https://localhost:7257;http://localhost:5257",
+      "dotnetRunMessages": true
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:7257",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

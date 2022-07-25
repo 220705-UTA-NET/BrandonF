@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "9AqFOVAMe6swRFs+qwlTQ90ThBLX6/piFt3YlJbdLvs=",
+  "Source": "MusicApp.API",
+  "BasePath": "_content/MusicApp.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MusicApp.API\\wwwroot",
+      "Source": "MusicApp.API",
+      "ContentRoot": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp\\wwwroot\\",
+      "BasePath": "_content/MusicApp.API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp\\wwwroot\\html\\test.html",
+      "SourceId": "MusicApp.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp\\wwwroot\\",
+      "BasePath": "_content/MusicApp.API",
+      "RelativePath": "html/test.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\html\\test.html"
+    }
+  ]
+}

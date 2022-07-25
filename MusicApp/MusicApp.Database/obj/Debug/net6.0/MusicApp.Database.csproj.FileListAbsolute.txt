@@ -1,0 +1,12 @@
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\bin\Debug\net6.0\MusicApp.Database.deps.json
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\bin\Debug\net6.0\MusicApp.Database.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\bin\Debug\net6.0\MusicApp.Database.pdb
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.csproj.AssemblyReference.cache
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.AssemblyInfoInputs.cache
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.AssemblyInfo.cs
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.csproj.CoreCompileInputs.cache
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\refint\MusicApp.Database.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\MusicApp.Database.pdb
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Database\obj\Debug\net6.0\ref\MusicApp.Database.dll

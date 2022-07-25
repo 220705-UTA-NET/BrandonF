@@ -1,0 +1,15 @@
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\bin\Debug\net6.0\MusicApp.Console.exe
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\bin\Debug\net6.0\MusicApp.Console.deps.json
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\bin\Debug\net6.0\MusicApp.Console.runtimeconfig.json
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\bin\Debug\net6.0\MusicApp.Console.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\bin\Debug\net6.0\MusicApp.Console.pdb
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\MusicApp.Console.csproj.AssemblyReference.cache
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\MusicApp.Console.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\MusicApp.Console.AssemblyInfoInputs.cache
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\MusicApp.Console.AssemblyInfo.cs
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\MusicApp.Console.csproj.CoreCompileInputs.cache
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\MusicApp.Console.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\refint\MusicApp.Console.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\MusicApp.Console.pdb
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\MusicApp.Console.genruntimeconfig.cache
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Console\obj\Debug\net6.0\ref\MusicApp.Console.dll
