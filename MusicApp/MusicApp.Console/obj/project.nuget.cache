@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5N2jQAE1F4AG4HxXPPn0g/0pchR3hLXVJjCdJys7pvYlYfnK4bDShojH5AGQQO9iT/bbMVewBKlE0jSks2XhyQ==",
+  "dgSpecHash": "KJjR8tfgNW+aOGM+XFNHD6T4qB0DZiBWkndmFHaWJgWL5ioCQz9ZLzHDXa+KmxZiNtuurEyUduKLyyHRsC/YWA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Console\\MusicApp.App.csproj",
+  "projectFilePath": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Console/MusicApp.App.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

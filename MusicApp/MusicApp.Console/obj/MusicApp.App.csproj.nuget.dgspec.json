@@ -1,35 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Console\\MusicApp.App.csproj": {}
+    "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Console/MusicApp.App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Console\\MusicApp.App.csproj": {
+    "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Console/MusicApp.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Console\\MusicApp.App.csproj",
+        "projectUniqueName": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Console/MusicApp.App.csproj",
         "projectName": "MusicApp.App",
-        "projectPath": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Console\\MusicApp.App.csproj",
-        "packagesPath": "C:\\Users\\brand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Console\\obj\\",
+        "projectPath": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Console/MusicApp.App.csproj",
+        "packagesPath": "/Users/brandon/.nuget/packages/",
+        "outputPath": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Console/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\brand\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/brandon/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Logic\\MusicApp.Logic.csproj": {
-                "projectPath": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Logic\\MusicApp.Logic.csproj"
+              "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj": {
+                "projectPath": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj"
               }
             }
           }
@@ -58,28 +56,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.302/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Logic\\MusicApp.Logic.csproj": {
+    "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Logic\\MusicApp.Logic.csproj",
+        "projectUniqueName": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj",
         "projectName": "MusicApp.Logic",
-        "projectPath": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Logic\\MusicApp.Logic.csproj",
-        "packagesPath": "C:\\Users\\brand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\brand\\Revature\\BrandonF\\MusicApp\\MusicApp.Logic\\obj\\",
+        "projectPath": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/MusicApp.Logic.csproj",
+        "packagesPath": "/Users/brandon/.nuget/packages/",
+        "outputPath": "/Users/brandon/Revature/BrandonF/MusicApp/MusicApp.Logic/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\brand\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/brandon/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -112,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.302/RuntimeIdentifierGraph.json"
         }
       }
     }

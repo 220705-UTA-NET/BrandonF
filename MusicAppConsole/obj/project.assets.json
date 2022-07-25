@@ -8,11 +8,16 @@
     "net6.0": []
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\brand\\.nuget\\packages\\": {}
+=======
+    "/Users/brandon/.nuget/packages/": {}
+>>>>>>> bcdfa582079f9fb0177897e6351301350144eadf
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\brand\\Revature\\BrandonF\\MusicAppConsole\\MusicAppConsole.csproj",
       "projectName": "MusicAppConsole",
       "projectPath": "C:\\Users\\brand\\Revature\\BrandonF\\MusicAppConsole\\MusicAppConsole.csproj",
@@ -22,12 +27,25 @@
       "configFilePaths": [
         "C:\\Users\\brand\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+      "projectUniqueName": "/Users/brandon/Revature/BrandonF/MusicAppConsole/MusicAppConsole.csproj",
+      "projectName": "MusicAppConsole",
+      "projectPath": "/Users/brandon/Revature/BrandonF/MusicAppConsole/MusicAppConsole.csproj",
+      "packagesPath": "/Users/brandon/.nuget/packages/",
+      "outputPath": "/Users/brandon/Revature/BrandonF/MusicAppConsole/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/brandon/.nuget/NuGet/NuGet.Config"
+>>>>>>> bcdfa582079f9fb0177897e6351301350144eadf
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+<<<<<<< HEAD
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+=======
+>>>>>>> bcdfa582079f9fb0177897e6351301350144eadf
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -60,7 +78,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.302/RuntimeIdentifierGraph.json"
+>>>>>>> bcdfa582079f9fb0177897e6351301350144eadf
       }
     }
   }
