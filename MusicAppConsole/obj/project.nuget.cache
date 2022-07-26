@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "MGJWExUOxeD7dXVw+KjbkoeB2/nq9bpba8VBQoPcohDQHRU5xKD5OuG268EYPweSTQTn86R5z0YPimjaY611eA==",
+  "dgSpecHash": "AYrBewCacddbCrazSG5Xx+FzK1GLAw5bPYnNnM5T2EsfwNv3srUpcl+uH0UoABkUIxomYurKhOt2jU4240FSww==",
   "success": true,
   "projectFilePath": "C:\\Users\\brand\\Revature\\BrandonF\\MusicAppConsole\\MusicAppConsole.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\brand\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
