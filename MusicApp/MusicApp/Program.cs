@@ -2,7 +2,6 @@ using MusicApp.Database;
 
 string connectionString = await File.ReadAllTextAsync("C:/Users/brand/Revature/connection.txt");
 
-Console.Write(connectionString);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

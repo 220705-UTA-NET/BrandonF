@@ -22,7 +22,7 @@ namespace MusicApp.Database
             _logger = logger;
         }
 
-        // Methods
+        // action method will retrieve all songs
         public async Task<IEnumerable<Song>> GetAllSongsAsync()
         {
             List<Song> result = new();
@@ -51,6 +51,42 @@ namespace MusicApp.Database
             _logger.LogInformation("Executed GetAllSongsAsync, returned {0} results", result.Count);
 
             return result;
+        }
+
+        // action method will retrieve a specific song based on the name of the song and the artist name
+        public async Task<Song> GetSongAsync(string name, string artist)
+        {
+            using SqlConnection connection = new(_connectionString);
+            await connection.OpenAsync();
+
+            string cmdText =
+                "SELECT * FROM MusicCollection.Songs WHERE Name=@name AND Artist=@artist;";
+
+            using SqlCommand cmd = new(cmdText, connection);
+            cmd.Parameters.AddWithValue("@Name", name);
+            cmd.Parameters.AddWithValue("@Artist", artist);
+
+            using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+            try
+            {
+                await reader.ReadAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            int id = reader.GetInt32(0);
+            string album = reader.IsDBNull(3) ? "" : reader.GetString(3);
+
+            Song song = new Song(id, name, artist, album);
+
+            await connection.CloseAsync();
+
+            _logger.LogInformation("Executed GetSong");
+
+            return song;
         }
     }
 }

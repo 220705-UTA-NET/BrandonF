@@ -19,7 +19,7 @@ namespace MusicApp.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("/songs")]
         public async Task<ActionResult<IEnumerable<Song>>> GetAllSongs()
         {
             IEnumerable<Song> songs;
@@ -34,6 +34,25 @@ namespace MusicApp.API.Controllers
                 return StatusCode(500);
             }
             return songs.ToList();
+        }
+
+        [HttpGet("{name}/{artist}")]
+        public async Task<ActionResult<Song>> GetSong(string name, string artist)
+        {
+            _logger.LogInformation("Name is {0} and artist is {1}", name, artist);
+            Song song;
+            try
+            {
+                song = await _repo.GetSongAsync(name, artist);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                _logger.LogInformation("Song Controller couldn't run GetAll method");
+                return StatusCode(500);
+            }
+
+            return song;
         }
 
         //[HttpGet("")]
