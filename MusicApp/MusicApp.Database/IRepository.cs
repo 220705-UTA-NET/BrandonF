@@ -10,6 +10,8 @@ namespace MusicApp.Database
     public interface IRepository
     {
         Task<IEnumerable<Song>> GetAllSongsAsync();
-        public Task<Song> GetSongAsync(string name, string artist);
+        Task<Song> GetSongAsync(string name, string artist);
+
+        InsertSong(int id, string name, string artist, string album);
     }
 }
