@@ -72,9 +72,10 @@ namespace MusicApp.Database
             {
                 await reader.ReadAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                _logger.LogError("GetSongAsync couldn't read from database.");
+                return null;
             }
 
             int id = reader.GetInt32(0);
@@ -87,6 +88,39 @@ namespace MusicApp.Database
             _logger.LogInformation("Executed GetSong");
 
             return song;
+        }
+
+        public async Task InsertSongAsync(string name, string artist, string album)
+        {
+            // check whether any of these are null in the main console app, not here
+
+            using SqlConnection connection = new(_connectionString);
+            await connection.OpenAsync();
+
+            string cmdText =
+                "INSERT INTO MusicCollection.Songs(Name, Artist, Album) VALUES(@name, @artist, @album);";
+
+            using SqlCommand cmd = new(cmdText, connection);
+            cmd.Parameters.AddWithValue("@Name", name);
+            cmd.Parameters.AddWithValue("@Artist", artist);
+            cmd.Parameters.AddWithValue("@Album", album);
+
+
+            try
+            {
+            await cmd.Connection.OpenAsync();
+            await cmd.ExecuteNonQueryAsync();
+
+            }
+            catch (Exception e)
+            {
+
+                _logger.LogError("Error in InsertSongAsync while trying to open a connection or execute non query"); ;
+                _logger.LogInformation(e.Message);
+            }
+
+
+            return;
         }
     }
 }

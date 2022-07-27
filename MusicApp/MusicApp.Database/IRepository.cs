@@ -11,7 +11,6 @@ namespace MusicApp.Database
     {
         Task<IEnumerable<Song>> GetAllSongsAsync();
         Task<Song> GetSongAsync(string name, string artist);
-
-        InsertSong(int id, string name, string artist, string album);
+        Task InsertSongAsync(string name, string artist, string album);
     }
 }

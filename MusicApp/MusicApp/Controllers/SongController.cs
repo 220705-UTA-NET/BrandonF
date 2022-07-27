@@ -47,24 +47,30 @@ namespace MusicApp.API.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, e.Message);
                 _logger.LogInformation("Song Controller couldn't run GetAll method");
+                _logger.LogError(e.Message);
                 return StatusCode(500);
             }
 
             return song;
         }
 
-        //[HttpGet("")]
-        //public ContentResult Testing()
-        //{
-        //    return Content("Message received. Sending a response back");
-        //}
+        [HttpPost("/song")]
+        public async Task InsertSong([FromBody] Song song)
+        {
 
-        //[HttpGet("{title}")]
-        //public ActionResult GetSong(string title)
-        //{
-        //    return Content("/html/test.html");
-        //}
+            
+            // song.Album == null ? "" : song.Album
+            try
+            {
+                await _repo.InsertSongAsync(song.Name, song.Artist, song.Album);
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation("Encountered error in InsertSong while trying to insert a song.");
+                _logger.LogError(e.Message);
+                return;
+            }
+        }
     }
 }
