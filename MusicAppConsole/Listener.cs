@@ -109,7 +109,7 @@ namespace MusicApclep.App
             // first check to see if the song exists already
             try
             {
-                HttpResponseMessage doesSongExist = await _httpClient.GetAsync($"Song/{title}/{artist}");
+                HttpResponseMessage doesSongExist = await _httpClient.GetAsync($"Song/song/{title}/{artist}");
                 if (doesSongExist.IsSuccessStatusCode)
                 {
                     Console.WriteLine("Song already exists!");
@@ -138,6 +138,17 @@ namespace MusicApclep.App
                     Console.WriteLine("Song added successfully!");
 
                     // check if the Album already exists in the database. If not then add it to the Album table
+                    HttpResponseMessage doesAlbumExist = await _httpClient.GetAsync($"Song/album/{title}/{artist}");
+
+
+                    if (!doesAlbumExist.IsSuccessStatusCode)
+                    {
+
+                        AlbumDTO album = new AlbumDTO(title, artist);
+
+                        HttpResponseMessage postAlbum = await _httpClient.PostAsync("Song/addalbum");
+                    }
+
 
                 }
                 else
@@ -158,7 +169,7 @@ namespace MusicApclep.App
         // method sends a GET request to the API with the title and artist name
         public async Task<string> GetSongRequest(string title, string artist)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"Song/{title}/{artist}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"Song/song/{title}/{artist}");
 
             if (response.IsSuccessStatusCode)
             {
