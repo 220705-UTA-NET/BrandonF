@@ -1,7 +1,6 @@
 using MusicApp.Database;
 
 //string connectionString = await File.ReadAllTextAsync("C:/Users/brand/Revature/connection.txt");
-//string connectionString = Environment.GetCommandLineArgs()[0];
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration["connectionString"];

@@ -30,7 +30,7 @@ namespace MusicApp.Database
             using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            string cmdText = "SELECT Id, Name, Artist, Album FROM MusicCollection.Songs;";
+            string cmdText = "SELECT Id, Title, Artist, Album FROM Song;";
 
             using SqlCommand cmd = new(cmdText, connection);
 
@@ -39,10 +39,11 @@ namespace MusicApp.Database
             while (await reader.ReadAsync())
             {
                 int id = reader.GetInt32(0);
-                string name = reader.GetString(1);
+                string title = reader.GetString(1);
                 string artist = reader.GetString(2);
-                string? album = reader.IsDBNull(3) ? "" : reader.GetString(3);
-                Song song = new Song(id, name, artist, album);
+                string? album = reader.GetString(3);
+                //reader.IsDBNull(3) ? "" : reader.GetString(3);
+                Song song = new(title, artist, album);
                 result.Add(song);
             }
 
@@ -54,17 +55,16 @@ namespace MusicApp.Database
         }
 
         // action method will retrieve a specific song based on the name of the song and the artist name
-        public async Task<Song> GetSongAsync(string name, string artist)
+        public async Task<Song?> GetSongAsync(string title, string artist)
         {
             using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            string cmdText =
-                "SELECT * FROM MusicCollection.Songs WHERE Name=@name AND Artist=@artist;";
+            string cmdText = "SELECT * FROM Song WHERE Title=@title AND Artist=@artist;";
 
             using SqlCommand cmd = new(cmdText, connection);
-            cmd.Parameters.AddWithValue("@Name", name);
-            cmd.Parameters.AddWithValue("@Artist", artist);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@artist", artist);
 
             using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
@@ -75,42 +75,45 @@ namespace MusicApp.Database
             catch (Exception e)
             {
                 _logger.LogError("GetSongAsync couldn't read from database.");
+                _logger.LogInformation(e.Message);
                 return null;
             }
 
-            int id = reader.GetInt32(0);
-            string album = reader.IsDBNull(3) ? "" : reader.GetString(3);
+          
+            string Title = reader.GetString(1);
+            string Artist = reader.GetString(2);
+            string Album = reader.GetString(3);
+            // reader.IsDBNull(3) ? "" : reader.GetString(3);
 
-            Song song = new Song(id, name, artist, album);
+            Song song = new Song(Title, Artist, Album);
 
             await connection.CloseAsync();
 
             _logger.LogInformation("Executed GetSong");
-
+            h
             return song;
         }
 
-        public async Task InsertSongAsync(string name, string artist, string album)
+ 
+        public async Task InsertSongAsync(string title, string artist, string album)
         {
             // check whether any of these are null in the main console app, not here
 
             using SqlConnection connection = new(_connectionString);
-            await connection.OpenAsync();
 
             string cmdText =
-                "INSERT INTO MusicCollection.Songs(Name, Artist, Album) VALUES(@name, @artist, @album);";
+                "INSERT INTO Song(Title, Artist, Album) VALUES(@title, @artist, @album);";
 
             using SqlCommand cmd = new(cmdText, connection);
-            cmd.Parameters.AddWithValue("@Name", name);
-            cmd.Parameters.AddWithValue("@Artist", artist);
-            cmd.Parameters.AddWithValue("@Album", album);
-
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@artist", artist);
+            cmd.Parameters.AddWithValue("@album", album);
+            cmd.Connection = connection;
 
             try
             {
-            await cmd.Connection.OpenAsync();
-            await cmd.ExecuteNonQueryAsync();
-
+                await connection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
             }
             catch (Exception e)
             {
@@ -119,6 +122,7 @@ namespace MusicApp.Database
                 _logger.LogInformation(e.Message);
             }
 
+            await connection.CloseAsync();
 
             return;
         }

@@ -8,17 +8,16 @@ namespace MusicApp.Logic
 {
     public class Song
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        //public int? Id { get; set; }
+        public string Title { get; set; }
         public string Artist { get; set; }
-        public string? Album { get; set; }
+        public string Album { get; set; }
 
         public Song() { }
 
-        public Song(int id, string name, string artist, string? album)
+        public Song(string title, string artist, string album)
         {
-            Id = id;
-            Name = name;
+            Title = title;
             Artist = artist;
             Album = album;
         }
