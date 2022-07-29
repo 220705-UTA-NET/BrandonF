@@ -20,7 +20,7 @@ namespace MusicApp.API.Controllers
         }
 
         // ACTION METHODS ----------------------------------------------------------------
-        [HttpGet("/songs")]
+        [HttpGet("songs")]
         public async Task<ActionResult<IEnumerable<Song>>> GetAllSongs()
         {
             IEnumerable<Song> songs;
