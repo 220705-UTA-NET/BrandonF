@@ -49,13 +49,13 @@ namespace MusicApp.Database
 
             await connection.CloseAsync();
 
-            _logger.LogInformation("Executed GetAllSongsAsync, returned {0} results", result.Count);
+            _logger.LogInformation("Executed GetAllSongsAsync");
 
             return result;
         }
 
         // action method will retrieve a specific song based on the name of the song and the artist name
-        public async Task<Song?> GetSongAsync(string title, string artist)
+        public async Task<Song> GetSongAsync(string title, string artist)
         {
             using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
@@ -85,12 +85,11 @@ namespace MusicApp.Database
             string Album = reader.GetString(3);
             // reader.IsDBNull(3) ? "" : reader.GetString(3);
 
-            Song song = new Song(Title, Artist, Album);
+            Song song = new(Title, Artist, Album);
 
             await connection.CloseAsync();
 
-            _logger.LogInformation("Executed GetSong");
-            h
+            _logger.LogInformation("Executed GetSongAsync");
             return song;
         }
 
@@ -123,8 +122,71 @@ namespace MusicApp.Database
             }
 
             await connection.CloseAsync();
+            _logger.LogInformation("Executed InsertSongAsync");
+        }
 
-            return;
+        public async Task<Album> GetAlbumAsync(string title, string artist)
+        {
+            using SqlConnection connection = new(_connectionString);
+            await connection.OpenAsync();
+
+            string cmdText = "SELECT * FROM Album WHERE Title=@title AND Artist=@artist;";
+
+            using SqlCommand cmd = new(cmdText, connection);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@artist", artist);
+
+            using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+            try
+            {
+                await reader.ReadAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("GetAlbumAsync couldn't read from database.");
+                _logger.LogInformation(e.Message);
+                return null;
+            }
+
+
+            string Title = reader.GetString(1);
+            string Artist = reader.GetString(2);
+
+            Album album = new(Title, Artist);
+
+            await connection.CloseAsync();
+
+            _logger.LogInformation("Executed GetAlbumAsync");
+            return album;
+        }
+
+        public async Task InsertAlbumAsync(string title, string artist)
+        {
+            using SqlConnection connection = new(_connectionString);
+
+            string cmdText =
+                "INSERT INTO Album(Title, Artist) VALUES(@title, @artist);";
+
+            using SqlCommand cmd = new(cmdText, connection);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@artist", artist);
+            cmd.Connection = connection;
+            
+            try
+            {
+                await connection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch (Exception e)
+            {
+
+                _logger.LogError("Error in InsertAlbumAsync while trying to open a connection or execute non query"); ;
+                _logger.LogInformation(e.Message);
+            }
+
+            await connection.CloseAsync();
+            _logger.LogInformation("Executed InsertAlbumAsync");
         }
     }
 }

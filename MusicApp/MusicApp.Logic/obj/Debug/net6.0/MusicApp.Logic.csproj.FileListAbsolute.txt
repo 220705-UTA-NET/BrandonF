@@ -1,11 +1,11 @@
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\bin\Debug\net6.0\MusicApp.Logic.deps.json
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\bin\Debug\net6.0\MusicApp.Logic.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\bin\Debug\net6.0\MusicApp.Logic.pdb
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\obj\Debug\net6.0\MusicApp.Logic.csproj.AssemblyReference.cache
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\obj\Debug\net6.0\MusicApp.Logic.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\obj\Debug\net6.0\MusicApp.Logic.AssemblyInfoInputs.cache
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\obj\Debug\net6.0\MusicApp.Logic.AssemblyInfo.cs
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\obj\Debug\net6.0\MusicApp.Logic.csproj.CoreCompileInputs.cache
-C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\bin\Debug\net6.0\MusicApp.Logic.deps.json
-C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\bin\Debug\net6.0\MusicApp.Logic.dll
-C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\bin\Debug\net6.0\MusicApp.Logic.pdb
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\obj\Debug\net6.0\MusicApp.Logic.dll
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\obj\Debug\net6.0\refint\MusicApp.Logic.dll
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp.Logic\obj\Debug\net6.0\MusicApp.Logic.pdb
