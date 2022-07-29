@@ -5,15 +5,15 @@ namespace MusicClasses
     public class SongDTO
     {
         // public int Id { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
         public string Artist { get; set; }
         public string? Album { get; set; }
 
         public SongDTO() { }
 
-        public SongDTO(string name, string artist, string? album)
+        public SongDTO(string title, string artist, string? album)
         {
-            Name = name;
+            Title = title;
             Artist = artist;
             Album = album;
         }

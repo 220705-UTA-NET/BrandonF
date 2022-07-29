@@ -13,47 +13,44 @@ namespace MusicApclep.App
     public class Listener
     {
 
+        // fields
         public HttpClient _httpClient;
         public readonly string serverURL = "https://localhost:7257/api/";
 
+        // constructor
         public Listener()
         {
             _httpClient = new HttpClient();
 
         }
 
+
+        // main method
         static async Task Main(string[] args)
         {
-
             string dbURL = File.ReadAllText("C:/Users/brand/Revature/connection.txt");
 
             Listener user = new Listener();
             user.StartServer(user.serverURL);
             string? choice = "";
 
-
-
-
             // loop that lets the user continuously make API calls
             while (choice != "-1")
             {
 
-                Console.WriteLine("[1] to send a get a song");
+                Console.WriteLine("[1] Insert a song");
+                Console.WriteLine("[2] Get a song");
+                Console.WriteLine("[3] Get all songs");
+
                 choice = Console.ReadLine();
 
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine("Enter a song title:");
-                        string? title = Console.ReadLine();
-                        Console.WriteLine("Enter a the artist name");
-                        string? artist = Console.ReadLine();
-                        if (title == null || artist == null) { Console.WriteLine("Song title or artist name is invalid"); continue; }
-                        var song = await user.GetSongRequest(title, artist);
-                        Console.WriteLine(song.ToString());
+                        await user.GetUserInput(choice);
                         break;
                     case "2":
-                        await user.InsertSongRequest();
+                        // await user.InsertSongRequest();
                         break;
                     case "-1":
                         Console.WriteLine("Exiting...");
@@ -62,6 +59,133 @@ namespace MusicApclep.App
                         break;
                 }
             }
+        }
+
+
+        // method gets a users' input and executes the specified action
+        public async Task GetUserInput(string choice)
+        {
+
+            string? title;
+            string? artist;
+            string? album;
+
+            switch (choice)
+            {
+                case "1":// get a song by artist
+                    Console.WriteLine("Enter song Title:");
+                    title = Console.ReadLine();
+                    Console.WriteLine("Enter the Artist's name:");
+                    artist = Console.ReadLine();
+                    Console.WriteLine("Enter the Album's name");
+                    album = Console.ReadLine();
+                    if (title == null || artist == null || album == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    var task1 = await InsertSongRequest(title, artist, album);
+                    break;
+                case "2":
+                    Console.WriteLine("Enter song Title:");
+                    title = Console.ReadLine();
+                    Console.WriteLine("Enter the Artist's name:");
+                    artist = Console.ReadLine();
+                    if (title == null || artist == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    var task2 = await GetSongRequest(title, artist);
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+                default:
+                    break;
+            }
+
+
+
+
+        }
+
+        // method sends a GET and POST request to the API to insert a new song into the database
+        public async Task<string> InsertSongRequest(string title, string artist, string album)
+        {
+            // first check to see if the song exists already
+            try
+            {
+                HttpResponseMessage doesSongExist = await _httpClient.GetAsync($"Song/{title}/{artist}");
+                if (doesSongExist.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Song already exists!");
+                    return "";
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Sending a GET request from InsertSongRequest produced an error. Exiting...");
+                Console.WriteLine(ex.Message);
+                return "";
+            }
+
+            // create a song, convert & serialize it to JSON, then send a POST request to add it to the database
+            SongDTO song = new SongDTO(title, artist, album);
+            string toInsert = Newtonsoft.Json.JsonConvert.SerializeObject(song);
+            StringContent toSend = new StringContent(toInsert, System.Text.Encoding.UTF8, "application/json");
+
+            try
+            {
+                // send a post request with the serialized song object
+                HttpResponseMessage response = await _httpClient.PostAsync("Song/addsong", toSend);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Song added successfully!");
+
+                    // check if the Album already exists in the database. If not then add it to the Album table
+
+                }
+                else
+                {
+                    Console.WriteLine("Song not added!");
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Insertion unsuccessful!");
+                Console.WriteLine(ex.Message);
+            }
+
+            return "";
+        }
+
+        // method sends a GET request to the API with the title and artist name
+        public async Task<string> GetSongRequest(string title, string artist)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"Song/{title}/{artist}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                try
+                {
+                    string? obj = await response.Content.ReadAsStringAsync();
+                    SongDTO? song = JsonConvert.DeserializeObject<SongDTO>(obj);
+                    return FormatSong(song);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}. Couldn't read response");
+                    return "Error 404: no song found";
+                }
+            }
+            Console.WriteLine("Bad GET song request");
+            return "Error 404: no song found";
+        }
+
+        // method will format a song
+        public string FormatSong(SongDTO song)
+        {
+            Console.WriteLine(song.Artist);
+            StringBuilder s = new StringBuilder();
+            s.Append($"Title: {song.Title}\nArtist: {song.Artist}\nAlbum: {song.Album}\n");
+
+            return s.ToString();
         }
         // method starts the server
         public void StartServer(string serverURL)
@@ -72,72 +196,5 @@ namespace MusicApclep.App
                 new MediaTypeWithQualityHeaderValue("application/json")
             ); // set the request header content type to Json
         }
-
-        public async Task InsertSongRequest()
-        {
-
-            SongDTO song = new SongDTO("FromConsole", "App", "EmptyAlbum");
-            string toInsert = Newtonsoft.Json.JsonConvert.SerializeObject(song);
-
-            StringContent toSend = new StringContent(toInsert, System.Text.Encoding.UTF8, "application/json");
-
-            try
-            {
-                // send a post request with the serialized song object
-                HttpResponseMessage response = await _httpClient.PostAsync("Song/addsong", toSend);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("status code is find");
-                }
-                else
-                {
-                    Console.WriteLine("error status code");
-                }
-
-            }
-            catch (System.Exception ex)
-            {
-                // todo
-                Console.WriteLine("Couldn't insert");
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-
-        public async Task<string> GetSongRequest(string name, string artist)
-        {
-            HttpResponseMessage response = await _httpClient.GetAsync($"Song/{name}/{artist}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                try
-                {
-                    string? obj = await response.Content.ReadAsStringAsync();
-                    SongDTO? song = JsonConvert.DeserializeObject<SongDTO>(obj);
-                    // return FormatSong(song);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error: {ex.Message}. Couldn't read response");
-                    return "";
-                }
-            }
-            else
-            {
-                Console.WriteLine("No such song titled {0} by {1} was found", name, artist);
-            }
-            return "";
-        }
-
-        // method will format a song
-        // public string FormatSong(SongDTO song)
-        // {
-        //     Console.WriteLine(song.Artist);
-        //     StringBuilder s = new StringBuilder();
-        //     s.Append($"ID: {song.Id}\nTitle: {song.Name}\nArtist: {song.Artist}\nAlbum: {song.Album}\n");
-
-        //     return s.ToString();
-        // }
     }
 }
