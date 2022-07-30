@@ -32,7 +32,7 @@ namespace MusicApp.API.Controllers
             {
                 _logger.LogInformation("Error encountered: connecting to database in GetAllSongs");
                 _logger.LogError(e.Message);
-                return BadRequest(500);
+                return StatusCode(500, "Songs couldn't be retrieved!");
             }
             return songs.ToList();
         }
@@ -52,7 +52,7 @@ namespace MusicApp.API.Controllers
             {
                 _logger.LogInformation("Error encountered: connecting to database in GetSong");
                 _logger.LogError(e.Message);
-                return BadRequest(500);
+                return StatusCode(500, "Song couldn't be retrieved!");
             }
 
             return song;
@@ -66,13 +66,14 @@ namespace MusicApp.API.Controllers
 
             try
             {
-                await _repo.InsertSongAsync(song.Title, song.Artist, song.Album);
+                StatusCodeResult rep = await _repo.InsertSongAsync(song.Title, song.Artist, song.Album);
+                if (rep.StatusCode == 500) return StatusCode(500, "Song couldn't be inserted!");
             }
             catch (Exception e)
             {
                 _logger.LogInformation("Error encountered: connecting to database in InsertSong");
                 _logger.LogError(e.Message);
-                return BadRequest(500);
+                return StatusCode(500, "Song couldn't be inserted!");
             }
             return StatusCode(200);
         }
@@ -86,12 +87,13 @@ namespace MusicApp.API.Controllers
             try
             {
                 album = await _repo.GetAlbumAsync(title, artist);
+                if (album == null) return StatusCode(500, "Album couldn't be found!");
             }
             catch (Exception e)
             {
                 _logger.LogInformation("Error encountered: connecting to database in GetAlbum");
                 _logger.LogError(e.Message);
-                return StatusCode(500);
+                return StatusCode(500, "Song couldn't be retrieved!");
             }
 
             return album;
@@ -104,19 +106,73 @@ namespace MusicApp.API.Controllers
         {
             try
             {
-                await _repo.InsertAlbumAsync(album.Title, album.Artist);
+                StatusCodeResult rep = await _repo.InsertAlbumAsync(album.Title, album.Artist);
+                if (rep.StatusCode == 500) return StatusCode(500, "Album couldn't be inserted!");
             }
             catch (Exception e)
             {
                 _logger.LogInformation("Error encountered: connecting to database in InsertAlbum");
                 _logger.LogError(e.Message);
-                return BadRequest(500);
+                return StatusCode(500, "Album couldn't be inserted!");
             }
             return StatusCode(200);
         }
 
         // -------------------------------------------------------------------------------
 
+        [HttpDelete("deletesong/{title}/{artist}/{album}")]
+        public async Task<ActionResult> DeleteSong(string title, string artist, string album)
+        {
+            try
+            {
+                StatusCodeResult rep = await _repo.DeleteSongAsync(title, artist, album);
+                if (rep.StatusCode == 500) return StatusCode(500, "Song couldn't be deleted!");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation("Error encountered: connecting to database in DeleteSong");
+                _logger.LogError(e.Message);
+                return StatusCode(500, "Song couldn't be deleted!");
+            }
+            return StatusCode(200);
+        }
 
+        // -------------------------------------------------------------------------------
+
+        [HttpDelete("deletealbum/{title}/{artist}")]
+        public async Task<ActionResult> DeleteAlbum(string title, string artist)
+        {
+            try
+            {
+                StatusCodeResult rep = await _repo.DeleteAlbumAsync(title, artist);
+                if (rep.StatusCode == 500) return StatusCode(500, "Album couldn't be deleted!");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation("Error encountered: connecting to database in DeleteAlbum");
+                _logger.LogError(e.Message);
+                return StatusCode(500, "Album couldn't be deleted!");
+            }
+            return StatusCode(200);
+        }
+
+
+        [HttpGet("albumsongs/{title}/{artist}")]
+        public async Task<ActionResult<IEnumerable<Song>>> GetAllSongsFromAlbum(string title, string artist)
+        {
+            IEnumerable<Song> songs;
+            try
+            {
+                songs = await _repo.GetSongsFromAlbumAsync(title, artist);
+                if (songs == null || songs.Any() == false) return StatusCode(500, "Album didn't have any songs!");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation("Error encountered: connecting to database in GetAllSongs");
+                _logger.LogError(e.Message);
+                return StatusCode(500, "Songs couldn't be retrieved!");
+            }
+            return songs.ToList();
+        }
     }
 }

@@ -7,6 +7,8 @@ C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\MusicApp.API
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\MusicApp.API.dll
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\MusicApp.API.pdb
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\brand\Revature\BrandonF\MusicApp\MusicApp\bin\Debug\net6.0\Newtonsoft.Json.dll

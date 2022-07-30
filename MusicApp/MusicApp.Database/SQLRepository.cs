@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MusicApp.Logic;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ namespace MusicApp.Database
             _logger = logger;
         }
 
+        // -----------------------------------------------------------------------------------------------
+
+
         // action method will retrieve all songs
         public async Task<IEnumerable<Song>> GetAllSongsAsync()
         {
@@ -38,7 +42,7 @@ namespace MusicApp.Database
 
             while (await reader.ReadAsync())
             {
-                int id = reader.GetInt32(0);
+                //int id = reader.GetInt32(0);
                 string title = reader.GetString(1);
                 string artist = reader.GetString(2);
                 string? album = reader.GetString(3);
@@ -53,6 +57,9 @@ namespace MusicApp.Database
 
             return result;
         }
+
+        // -----------------------------------------------------------------------------------------------
+
 
         // action method will retrieve a specific song based on the name of the song and the artist name
         public async Task<Song> GetSongAsync(string title, string artist)
@@ -93,8 +100,10 @@ namespace MusicApp.Database
             return song;
         }
 
- 
-        public async Task InsertSongAsync(string title, string artist, string album)
+        // -----------------------------------------------------------------------------------------------
+
+
+        public async Task<StatusCodeResult> InsertSongAsync(string title, string artist, string album)
         {
             // check whether any of these are null in the main console app, not here
 
@@ -119,11 +128,16 @@ namespace MusicApp.Database
 
                 _logger.LogError("Error in InsertSongAsync while trying to open a connection or execute non query"); ;
                 _logger.LogInformation(e.Message);
+                return new StatusCodeResult(500);
             }
 
             await connection.CloseAsync();
             _logger.LogInformation("Executed InsertSongAsync");
+            return new StatusCodeResult(200);
         }
+
+
+        // -----------------------------------------------------------------------------------------------
 
         public async Task<Album> GetAlbumAsync(string title, string artist)
         {
@@ -161,12 +175,15 @@ namespace MusicApp.Database
             return album;
         }
 
-        public async Task InsertAlbumAsync(string title, string artist)
+
+        // -----------------------------------------------------------------------------------------------
+
+
+        public async Task<StatusCodeResult> InsertAlbumAsync(string title, string artist)
         {
             using SqlConnection connection = new(_connectionString);
 
-            string cmdText =
-                "INSERT INTO Album(Title, Artist) VALUES(@title, @artist);";
+            string cmdText = "INSERT INTO Album(Title, Artist) VALUES(@title, @artist);";
 
             using SqlCommand cmd = new(cmdText, connection);
             cmd.Parameters.AddWithValue("@title", title);
@@ -180,13 +197,109 @@ namespace MusicApp.Database
             }
             catch (Exception e)
             {
-
                 _logger.LogError("Error in InsertAlbumAsync while trying to open a connection or execute non query"); ;
-                _logger.LogInformation(e.Message);
+                _logger.LogError(e.Message);
+                return new StatusCodeResult(500);
             }
 
             await connection.CloseAsync();
             _logger.LogInformation("Executed InsertAlbumAsync");
+            return new StatusCodeResult(200);
+        }
+
+
+        // -----------------------------------------------------------------------------------------------
+
+        public async Task<StatusCodeResult> DeleteSongAsync(string title, string artist, string album)
+        {
+            using SqlConnection connection = new(_connectionString);
+
+            string cmdText = "DELETE FROM Song WHERE Title=@title AND Artist=@artist AND Album=@album;";
+
+            using SqlCommand cmd = new(cmdText, connection);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@artist", artist);
+            cmd.Parameters.AddWithValue("@album", album);
+            cmd.Connection = connection;
+
+            try
+            {
+                await connection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Error in DeleteSongAsync while trying to open a connection or execute non query"); ;
+                _logger.LogError(e.Message);
+                return new StatusCodeResult(500);
+            }
+
+            await connection.CloseAsync();
+            _logger.LogInformation("Executed DeleteSongAsync");
+            return new StatusCodeResult(200);
+        }
+
+        // -----------------------------------------------------------------------------------------------
+
+        public async Task<StatusCodeResult> DeleteAlbumAsync(string title, string artist)
+        {
+            using SqlConnection connection = new(_connectionString);
+
+            string cmdText = "DELETE FROM Album WHERE Title=@title AND Artist=@artist;";
+
+            using SqlCommand cmd = new(cmdText, connection);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@artist", artist);
+            cmd.Connection = connection;
+
+            try
+            {
+                await connection.OpenAsync();
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Error in DeleteAlbumAsync while trying to open a connection or execute non query"); ;
+                _logger.LogError(e.Message);
+                return new StatusCodeResult(500);
+            }
+
+            await connection.CloseAsync();
+            _logger.LogInformation("Executed DeleteAlbumAsync");
+            return new StatusCodeResult(200);
+        }
+
+        // -----------------------------------------------------------------------------------------------
+        public async Task<IEnumerable<Song>> GetSongsFromAlbumAsync(string title, string artist)
+        {
+            List<Song> result = new();
+
+            using SqlConnection connection = new(_connectionString);
+            await connection.OpenAsync();
+
+            string cmdText = "SELECT * FROM Song JOIN Album on Album.Title=Song.Album AND Album.Artist=Song.Artist WHERE Album.Title=@title AND Album.Artist=@artist;";
+
+            using SqlCommand cmd = new(cmdText, connection);
+            cmd.Parameters.AddWithValue("@title", title);
+            cmd.Parameters.AddWithValue("@artist", artist);
+
+            using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+               
+                string Title = reader.GetString(1);
+                string Artist = reader.GetString(2);
+                
+                Song song = new(Title, artist, title);
+                result.Add(song);
+            }
+
+            await connection.CloseAsync();
+
+            _logger.LogInformation("Executed GetAllSongsAsync");
+
+            return result;
         }
     }
 }
