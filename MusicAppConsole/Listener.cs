@@ -24,7 +24,6 @@ namespace MusicApclep.App
 
         }
 
-
         // main method
         static async Task Main(string[] args)
         {
@@ -45,7 +44,7 @@ namespace MusicApclep.App
                 Console.WriteLine("[5] Insert Album");
                 Console.WriteLine("[6] Get album songs");
                 Console.WriteLine("[7] Delete album");
-
+                Console.WriteLine("[-1] Exit");
 
                 choice = Console.ReadLine();
 
@@ -76,6 +75,7 @@ namespace MusicApclep.App
                         Console.WriteLine("Exiting...");
                         break;
                     default:
+                        Console.WriteLine("Invalid input. Try again or enter [-1] to exit.");
                         break;
                 }
             }
@@ -89,14 +89,6 @@ namespace MusicApclep.App
             string? title;
             string? artist;
             string? album;
-
-            // Console.WriteLine("[1] Insert a song");
-            // Console.WriteLine("[2] Get a song");
-            // Console.WriteLine("[3] Get all songs");
-            // Console.WriteLine("[4] Delete song");
-            // Console.WriteLine("[5] Insert Album");
-            // Console.WriteLine("[6] Get album");
-            // Console.WriteLine("[7] Delete album");
 
             switch (choice)
             {
