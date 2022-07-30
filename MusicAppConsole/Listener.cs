@@ -41,8 +41,10 @@ namespace MusicApclep.App
                 Console.WriteLine("[1] Insert a song");
                 Console.WriteLine("[2] Get a song");
                 Console.WriteLine("[3] Get all songs");
-                Console.WriteLine("[4] Get Album");
+                Console.WriteLine("[4] Delete song");
                 Console.WriteLine("[5] Insert Album");
+                Console.WriteLine("[6] Get album songs");
+                Console.WriteLine("[7] Delete album");
 
 
                 choice = Console.ReadLine();
@@ -61,7 +63,15 @@ namespace MusicApclep.App
                     case "4":
                         await user.GetUserInput(choice);
                         break;
-
+                    case "5":
+                        await user.GetUserInput(choice);
+                        break;
+                    case "6":
+                        await user.GetUserInput(choice);
+                        break;
+                    case "7":
+                        await user.GetUserInput(choice);
+                        break;
                     case "-1":
                         Console.WriteLine("Exiting...");
                         break;
@@ -79,6 +89,14 @@ namespace MusicApclep.App
             string? title;
             string? artist;
             string? album;
+
+            // Console.WriteLine("[1] Insert a song");
+            // Console.WriteLine("[2] Get a song");
+            // Console.WriteLine("[3] Get all songs");
+            // Console.WriteLine("[4] Delete song");
+            // Console.WriteLine("[5] Insert Album");
+            // Console.WriteLine("[6] Get album");
+            // Console.WriteLine("[7] Delete album");
 
             switch (choice)
             {
@@ -103,21 +121,185 @@ namespace MusicApclep.App
                 case "3":// get all songs
                     var task3 = await GetAllSongsRequest();
                     break;
-                case "4":
+                case "4":// delete song
+                    Console.WriteLine("Enter song Title:");
+                    title = Console.ReadLine();
+                    Console.WriteLine("Enter the Artist's name:");
+                    artist = Console.ReadLine();
+                    Console.WriteLine("Enter the Album's name");
+                    album = Console.ReadLine();
+                    if (title == null || artist == null || album == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    var task4 = await DeleteSongRequest(title, artist, album);
+                    break;
+                case "5":// insert album
+                    Console.WriteLine("Enter an album Title:");
+                    title = Console.ReadLine();
+                    Console.WriteLine("Enter the Artist's name:");
+                    artist = Console.ReadLine();
+                    if (title == null || artist == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    var task5 = await InsertAlbumRequest(title, artist);
+                    break;
+                case "6":// get album songs
+                    Console.WriteLine("Enter album Title:");
+                    title = Console.ReadLine();
+                    Console.WriteLine("Enter the Artist's name:");
+                    artist = Console.ReadLine();
+                    if (title == null || artist == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    var task6 = await GetAlbumSongsRequest(title, artist);
+                    break;
+                case "7":// delete album
+                    Console.WriteLine("Enter album Title:");
+                    title = Console.ReadLine();
+                    Console.WriteLine("Enter the Artist's name:");
+                    artist = Console.ReadLine();
+                    if (title == null || artist == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    var task7 = await DeleteAlbumRequest(title, artist);
                     break;
                 default:
                     break;
             }
-
-
-
-
         }
 
+
+        public async Task<string> InsertAlbumRequest(string title, string artist)
+        {
+            // first check to see if the album exists already
+            try
+            {
+                HttpResponseMessage doesAlbumExist = await _httpClient.GetAsync($"Song/album/{title}/{artist}");
+                if (doesAlbumExist.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Album already exist!");
+                    return "Error-1";
+                }
+
+                // create the album, serialize the album to a string, convert the string to StringContent
+                AlbumDTO serializeAlbum = new AlbumDTO(title, artist);
+                string convertedAlbum = Newtonsoft.Json.JsonConvert.SerializeObject(serializeAlbum);
+                StringContent albumToSend = new StringContent(convertedAlbum, System.Text.Encoding.UTF8, "application/json");
+                // send a POST request
+                HttpResponseMessage postAlbum = await _httpClient.PostAsync("Song/addalbum", albumToSend);
+
+                if (!postAlbum.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Album not added!");
+                }
+                else
+                {
+                    Console.WriteLine("Album added too!");
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Sending a GET request from GetAlbumRequest produced an error. Exiting...");
+                Console.WriteLine(ex.Message);
+                return "Error-1";
+            }
+            Console.WriteLine("Album inserted successfully!");
+
+            return "Done";
+        }
+
+
+        public async Task<string> GetAlbumSongsRequest(string title, string artist)
+        {
+            // first check to see if the song exists already
+            try
+            {
+                HttpResponseMessage doesAlbumExist = await _httpClient.GetAsync($"Song/album/{title}/{artist}");
+
+                if (!doesAlbumExist.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Album doesn't exist first!");
+                    return "Error-1";
+                }
+
+                HttpResponseMessage songsList = await _httpClient.GetAsync($"Song/albumsongs/{title}/{artist}");
+                if (!songsList.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Album doesn't exist second!");
+                    return "Error-1";
+                }
+
+
+                string? obj = await songsList.Content.ReadAsStringAsync();
+                List<SongDTO>? songs = JsonConvert.DeserializeObject<List<SongDTO>>(obj);
+                Console.WriteLine(FormatSong(songs));
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Sending a GET request from GetAlbumRequest produced an error. Exiting...");
+                Console.WriteLine(ex.Message);
+                return "Error-1";
+            }
+            Console.WriteLine("Album retrieved successfully!");
+
+            return "Done";
+        }
+
+        public async Task<string> DeleteAlbumRequest(string title, string artist)
+        {
+            // first check to see if the song exists already
+            try
+            {
+                HttpResponseMessage doesAlbumExist = await _httpClient.GetAsync($"Song/album/{title}/{artist}");
+                if (!doesAlbumExist.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Album doesn't exist!");
+                    return "Error-1";
+                }
+
+                HttpResponseMessage deleteAlbum = await _httpClient.DeleteAsync($"Song/deletealbum/{title}/{artist}");
+                if (!deleteAlbum.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Couldn't delete this album!");
+                    return "Error-1";
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Sending a GET request from DeleteAlbumRequest produced an error. Exiting...");
+                Console.WriteLine(ex.Message);
+                return "Error-1";
+            }
+            Console.WriteLine("Album deleted successfully!");
+            return "Done";
+        }
+
+        public async Task<string> DeleteSongRequest(string title, string artist, string album)
+        {
+            // first check to see if the song exists already
+            try
+            {
+                HttpResponseMessage doesSongExist = await _httpClient.GetAsync($"Song/song/{title}/{artist}");
+                if (!doesSongExist.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Song doesn't exist!");
+                    return "Error-1";
+                }
+
+                HttpResponseMessage deleteSong = await _httpClient.DeleteAsync($"Song/deletesong/{title}/{artist}/{album}");
+                if (!deleteSong.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Couldn't delete this song!");
+                    return "Error-1";
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Sending a GET request from DeleteSongRequest produced an error. Exiting...");
+                Console.WriteLine(ex.Message);
+                return "Error-1";
+            }
+            Console.WriteLine("Song deleted successfully!");
+            return "Done";
+        }
 
 
         public async Task<string> GetAllSongsRequest()
         {
+            List<SongDTO>? l;
             try
             {
                 HttpResponseMessage songsList = await _httpClient.GetAsync($"Song/songs");
@@ -127,8 +309,7 @@ namespace MusicApclep.App
                     return "Error-1";
                 }
 
-                List<SongDTO>? l = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SongDTO>>(await songsList.Content.ReadAsStringAsync());
-                Console.WriteLine(FormatSong(l));
+                l = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SongDTO>>(await songsList.Content.ReadAsStringAsync());
             }
             catch (System.Exception ex)
             {
@@ -137,8 +318,11 @@ namespace MusicApclep.App
                 return "Error-1";
             }
 
+            Console.WriteLine(FormatSong(l));
             return "Done";
         }
+
+
         // method sends a GET and POST request to the API to insert a new song into the database
         public async Task<string> InsertSongRequest(string title, string artist, string album)
         {
@@ -180,7 +364,7 @@ namespace MusicApclep.App
                     if (!doesAlbumExist.IsSuccessStatusCode)
                     {
                         // create the album, serialize the album to a string, convert the string to StringContent
-                        AlbumDTO serializeAlbum = new AlbumDTO(title, artist);
+                        AlbumDTO serializeAlbum = new AlbumDTO(album, artist);
                         string convertedAlbum = Newtonsoft.Json.JsonConvert.SerializeObject(serializeAlbum);
                         StringContent albumToSend = new StringContent(convertedAlbum, System.Text.Encoding.UTF8, "application/json");
                         // send a POST request
@@ -189,6 +373,10 @@ namespace MusicApclep.App
                         if (!postAlbum.IsSuccessStatusCode)
                         {
                             Console.WriteLine("Album not added!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Album added too!");
                         }
                     }
                 }
@@ -237,7 +425,7 @@ namespace MusicApclep.App
         // method will format a song
         public string FormatSong(List<SongDTO> songs)
         {
-            if (songs == null) return "Error-1";
+            if (songs == null || songs.Count == 0) return "Error-1";
             int c = 1;
             StringBuilder str = new StringBuilder();
             foreach (var s in songs)
