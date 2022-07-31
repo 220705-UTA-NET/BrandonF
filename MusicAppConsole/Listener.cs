@@ -44,6 +44,8 @@ namespace MusicApclep.App
                 Console.WriteLine("[5] Insert Album");
                 Console.WriteLine("[6] Get album songs");
                 Console.WriteLine("[7] Delete album");
+                Console.WriteLine("[8] Get songs by artist");
+
                 Console.WriteLine("[-1] Exit");
 
                 choice = Console.ReadLine();
@@ -51,24 +53,13 @@ namespace MusicApclep.App
                 switch (choice)
                 {
                     case "1":
-                        await user.GetUserInput(choice);
-                        break;
                     case "2":
-                        await user.GetUserInput(choice);
-                        break;
                     case "3":
-                        await user.GetUserInput(choice);
-                        break;
                     case "4":
-                        await user.GetUserInput(choice);
-                        break;
                     case "5":
-                        await user.GetUserInput(choice);
-                        break;
                     case "6":
-                        await user.GetUserInput(choice);
-                        break;
                     case "7":
+                    case "8":
                         await user.GetUserInput(choice);
                         break;
                     case "-1":
@@ -99,7 +90,7 @@ namespace MusicApclep.App
                     artist = Console.ReadLine();
                     Console.WriteLine("Enter the Album's name");
                     album = Console.ReadLine();
-                    if (title == null || artist == null || album == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    if (title == null || artist == null || album == null || title == "-1" || artist == "-1" || album == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
                     var task1 = await InsertSongRequest(title, artist, album);
                     break;
                 case "2":// get a specific song by title and artist
@@ -107,7 +98,7 @@ namespace MusicApclep.App
                     title = Console.ReadLine();
                     Console.WriteLine("Enter the Artist's name:");
                     artist = Console.ReadLine();
-                    if (title == null || artist == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    if (title == null || artist == null || title == "-1" || artist == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
                     var task2 = await GetSongRequest(title, artist);
                     break;
                 case "3":// get all songs
@@ -120,7 +111,7 @@ namespace MusicApclep.App
                     artist = Console.ReadLine();
                     Console.WriteLine("Enter the Album's name");
                     album = Console.ReadLine();
-                    if (title == null || artist == null || album == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    if (title == null || artist == null || album == null || title == "-1" || artist == "-1" || album == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
                     var task4 = await DeleteSongRequest(title, artist, album);
                     break;
                 case "5":// insert album
@@ -128,7 +119,7 @@ namespace MusicApclep.App
                     title = Console.ReadLine();
                     Console.WriteLine("Enter the Artist's name:");
                     artist = Console.ReadLine();
-                    if (title == null || artist == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    if (title == null || artist == null || title == "-1" || artist == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
                     var task5 = await InsertAlbumRequest(title, artist);
                     break;
                 case "6":// get album songs
@@ -136,7 +127,7 @@ namespace MusicApclep.App
                     title = Console.ReadLine();
                     Console.WriteLine("Enter the Artist's name:");
                     artist = Console.ReadLine();
-                    if (title == null || artist == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    if (title == null || artist == null || title == "-1" || artist == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
                     var task6 = await GetAlbumSongsRequest(title, artist);
                     break;
                 case "7":// delete album
@@ -144,14 +135,47 @@ namespace MusicApclep.App
                     title = Console.ReadLine();
                     Console.WriteLine("Enter the Artist's name:");
                     artist = Console.ReadLine();
-                    if (title == null || artist == null) { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    if (title == null || artist == null || title == "-1" || artist == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
                     var task7 = await DeleteAlbumRequest(title, artist);
+                    break;
+                case "8":// delete album
+                    Console.WriteLine("Enter the Artist's name:");
+                    artist = Console.ReadLine();
+                    if (artist == null || artist == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
+                    var task8 = await GetSongsByArtistRequest(artist);
                     break;
                 default:
                     break;
             }
         }
 
+
+        public async Task<string> GetSongsByArtistRequest(string artist)
+        {
+            // first check to see if the song exists already
+            try
+            {
+                HttpResponseMessage doesArtistExist = await _httpClient.GetAsync($"Song/songsby/{artist}");
+
+                if (!doesArtistExist.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Artist doesn't exist first!");
+                    return "Error-1";
+                }
+
+                string? obj = await doesArtistExist.Content.ReadAsStringAsync();
+                List<SongDTO>? songs = JsonConvert.DeserializeObject<List<SongDTO>>(obj);
+                Console.WriteLine(FormatSong(songs));
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine("Sending a GET request from GetSongsByArtistRequest produced an error. Exiting...");
+                Console.WriteLine(ex.Message);
+                return "Error-1";
+            }
+            Console.WriteLine("Songs retrieved successfully!");
+            return "Done";
+        }
 
         public async Task<string> InsertAlbumRequest(string title, string artist)
         {
