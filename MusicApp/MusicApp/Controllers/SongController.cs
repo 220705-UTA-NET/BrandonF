@@ -156,6 +156,7 @@ namespace MusicApp.API.Controllers
             return StatusCode(200);
         }
 
+        // -------------------------------------------------------------------------------
 
         [HttpGet("albumsongs/{title}/{artist}")]
         public async Task<ActionResult<IEnumerable<Song>>> GetAllSongsFromAlbum(string title, string artist)
@@ -174,5 +175,27 @@ namespace MusicApp.API.Controllers
             }
             return songs.ToList();
         }
+
+        // -------------------------------------------------------------------------------
+
+        [HttpGet("songsby/{artist}")]
+        public async Task<ActionResult<IEnumerable<Song>>> GetSongsByArtist(string artist)
+        {
+            IEnumerable<Song> songs;
+            try
+            {
+                songs = await _repo.GetSongsByArtistAsync(artist);
+                if (songs == null || songs.Any() == false) return StatusCode(500, "Artist didn't have any songs or doesn't exist!");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation("Error encountered: connecting to database in GetSongsByArtist");
+                _logger.LogError(e.Message);
+                return StatusCode(500, "Songs couldn't be retrieved!");
+            }
+            return songs.ToList();
+        }
+
+        //public async Task<StatusCodeResult> ArtistExist(string artist)
     }
 }

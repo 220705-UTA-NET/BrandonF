@@ -18,5 +18,7 @@ namespace MusicApp.Database
         Task<StatusCodeResult> InsertSongAsync(string title, string artist, string album);
         Task<StatusCodeResult> DeleteSongAsync(string title, string artist, string album);
         Task<StatusCodeResult> DeleteAlbumAsync(string title, string artist);
+        Task<IEnumerable<Song>> GetSongsByArtistAsync(string artist);
+
     }
 }
