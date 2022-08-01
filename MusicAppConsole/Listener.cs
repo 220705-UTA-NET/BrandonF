@@ -159,7 +159,7 @@ namespace MusicApclep.App
 
                 if (!doesArtistExist.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Artist doesn't exist first!");
+                    Console.WriteLine("Artist doesn't exist!");
                     return "Error-1";
                 }
 
@@ -199,11 +199,9 @@ namespace MusicApclep.App
                 if (!postAlbum.IsSuccessStatusCode)
                 {
                     Console.WriteLine("Album not added!");
+                    return "Error-1";
                 }
-                else
-                {
-                    Console.WriteLine("Album added too!");
-                }
+
 
             }
             catch (System.Exception ex)
@@ -227,14 +225,14 @@ namespace MusicApclep.App
 
                 if (!doesAlbumExist.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Album doesn't exist first!");
+                    Console.WriteLine("Album doesn't exist!");
                     return "Error-1";
                 }
 
                 HttpResponseMessage songsList = await _httpClient.GetAsync($"Song/albumsongs/{title}/{artist}");
                 if (!songsList.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Album doesn't exist second!");
+                    Console.WriteLine("Album doesn't exist!");
                     return "Error-1";
                 }
 
