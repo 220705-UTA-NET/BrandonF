@@ -33,6 +33,8 @@ namespace MusicApclep.App
             user.StartServer(user.serverURL);
             string? choice = "";
 
+            Console.WriteLine("WELCOME!");
+
             // loop that lets the user continuously make API calls
             while (choice != "-1")
             {
@@ -138,7 +140,7 @@ namespace MusicApclep.App
                     if (title == null || artist == null || title == "-1" || artist == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
                     var task7 = await DeleteAlbumRequest(title, artist);
                     break;
-                case "8":// delete album
+                case "8":// get songs by artist
                     Console.WriteLine("Enter the Artist's name:");
                     artist = Console.ReadLine();
                     if (artist == null || artist == "-1") { Console.WriteLine("Input is needed for all attributes. Some input were invalid. Exiting..."); return; }
@@ -232,7 +234,7 @@ namespace MusicApclep.App
                 HttpResponseMessage songsList = await _httpClient.GetAsync($"Song/albumsongs/{title}/{artist}");
                 if (!songsList.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Album doesn't exist!");
+                    Console.WriteLine("Album doesn't have any songs yet!");
                     return "Error-1";
                 }
 
@@ -386,7 +388,7 @@ namespace MusicApclep.App
 
                         if (!postAlbum.IsSuccessStatusCode)
                         {
-                            Console.WriteLine("Album not added!");
+                            Console.WriteLine("Album already added!");
                         }
                         else
                         {
@@ -444,7 +446,7 @@ namespace MusicApclep.App
             StringBuilder str = new StringBuilder();
             foreach (var s in songs)
             {
-                str.Append($"{c++}. {s.Title} - {s.Artist} # Featured in: {s.Album}\n\n");
+                str.Append($"{c++}. {s.Title} - {s.Artist} | Featured in: {s.Album}\n\n");
 
             }
             return str.ToString();
