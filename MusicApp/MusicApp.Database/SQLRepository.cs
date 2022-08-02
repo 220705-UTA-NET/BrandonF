@@ -42,12 +42,10 @@ namespace MusicApp.Database
 
             while (await reader.ReadAsync())
             {
-                //int id = reader.GetInt32(0);
                 string title = reader.GetString(1);
                 string artist = reader.GetString(2);
                 string? album = reader.GetString(3);
-                //reader.IsDBNull(3) ? "" : reader.GetString(3);
-                Song song = new(title, artist, album);
+                       Song song = new(title, artist, album);
                 result.Add(song);
             }
 
@@ -90,7 +88,7 @@ namespace MusicApp.Database
             string Title = reader.GetString(1);
             string Artist = reader.GetString(2);
             string Album = reader.GetString(3);
-            // reader.IsDBNull(3) ? "" : reader.GetString(3);
+            
 
             Song song = new(Title, Artist, Album);
 
@@ -336,41 +334,6 @@ namespace MusicApp.Database
             return result;
         }
 
-        //public async Task<StatusCodeResult> ArtistExistsAsync(string artist)
-        //{
-        //    using SqlConnection connection = new(_connectionString);
-        //    await connection.OpenAsync();
-
-        //    string cmdText = "SELECT * FROM Artist WHERE Artist.Name=@artist;";
-
-        //    using SqlCommand cmd = new(cmdText, connection);
-        //    cmd.Parameters.AddWithValue("@title", title);
-        //    cmd.Parameters.AddWithValue("@artist", artist);
-
-        //    using SqlDataReader reader = await cmd.ExecuteReaderAsync();
-
-        //    try
-        //    {
-        //        await reader.ReadAsync();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _logger.LogError("GetAlbumAsync couldn't read from database.");
-        //        _logger.LogInformation(e.Message);
-        //        return null;
-        //    }
-
-
-        //    string Title = reader.GetString(1);
-        //    string Artist = reader.GetString(2);
-
-        //    Album album = new(Title, Artist);
-
-        //    await connection.CloseAsync();
-
-        //    _logger.LogInformation("Executed GetAlbumAsync");
-        //    return album;
-
-        //}
+      
     }
 }
